@@ -62,4 +62,5 @@ def gen_rankings_page():
     rank_list = map(player_to_html, stats.items())
     print(rank_list)
 
-gen_rankings_page()
+# gen_rankings_page()
+print calculate_player_stats('games.log')
