@@ -1,0 +1,36 @@
+body {
+    margin: 0px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 700px;
+    font-size: 0px;
+}
+
+#header > li {
+    display: inline-block;
+    width: 340px;
+    margin: 5px;
+    margin-top: 10px;
+    text-align: center;
+    background-color: rgb(200,200,200);
+}
+
+#header > li:hover {
+    background-color: rgb(220,220,220);
+}
+
+#header > li > a {
+    display: inline-block;
+    width: 330px;
+    padding: 5px;
+    text-decoration: none;
+    font: bold 30px/35px Helvetica, sans-serif;
+    color: rgb(64,96,255);
+}

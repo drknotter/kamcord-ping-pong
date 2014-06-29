@@ -4,3 +4,6 @@
 !.gitignore
 # and the players directory
 !players/
+# and the css directory
+!css/
+!css/*
