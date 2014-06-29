@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 
+from scipy.optimize import fmin_slsqp
+
 def k_factor(player):
     if( player['matches'] < 20 ):
         return 32
@@ -8,8 +10,67 @@ def k_factor(player):
     else:
         return 16
 
-def calculate_player_stats(games_log):
-    stats = {}
+def diff2(R_a, R_b, w, t):
+    return pow(1.0 / (pow(10.0, (R_b-R_a)/400.0) + 1) - float(w) / float(t), 2.0)
+
+def calculate_initial_stats(log):
+    initial_stats = {}
+    current_index = 0
+    index_map = {}
+
+    # Read in the players initial records.
+    f = open(log)
+    for line in f:
+        (player1, player2, record) = map(lambda x: x.strip(), line.split(','))
+
+        (w1, w2) = map(lambda x: int(x.strip()), record.split('-'))
+
+        if( player1 not in initial_stats ):
+            initial_stats[player1] = {}
+            index_map[player1] = current_index
+            current_index += 1
+
+        if( player2 not in initial_stats ):
+            initial_stats[player2] = {}
+            index_map[player2] = current_index
+            current_index += 1
+
+        initial_stats[player1][player2] = {'wins': w1, 'games': w1 + w2}
+        initial_stats[player2][player1] = {'wins': w2, 'games': w1 + w2}
+    f.close()
+
+    # Construct the function to minimize.
+    min_func_string = "def min_func(x):\n    return "
+    func_calls = []
+    for player in initial_stats:
+        for opponent in initial_stats[player]:
+            func_calls.append("diff2(x[" + str(index_map[player]) + "], "\
+                                  + "x[" + str(index_map[opponent]) + "], " \
+                                  + str(initial_stats[player][opponent]['wins']) + ", " \
+                                  + str(initial_stats[player][opponent]['games']) + ")")
+    min_func_string += " + ".join(func_calls)
+    exec min_func_string in globals()
+
+    # Construct the contraint equation.
+    ave_func_string = "def ave_func(x):\n    return (" + " + ".join(map(lambda i: "x["+str(i)+"]", range(len(initial_stats)))) + ")/" + str(float(len(initial_stats))) + " - 1500.0"
+    exec ave_func_string in globals()
+
+    # Compute the initial rankings
+    rankings = fmin_slsqp(min_func, [1500]*len(initial_stats), eqcons=[ave_func], acc=1e-16, iter=1e6)
+
+    for player in initial_stats:
+        initial_stats[player] = {'rank': rankings[index_map[player]],\
+                                 'matches': 0,\
+                                 'wins': 0,\
+                                 'losses': 0,\
+                                 'history': []}
+
+    return initial_stats
+
+
+def calculate_player_stats(games_log, initial_stats):
+    stats = initial_stats
+    provisional_players = {};
     f = open(games_log)
 
     for line in f:
@@ -18,16 +79,8 @@ def calculate_player_stats(games_log):
             continue
 
         (date, player1, player2, matches) = map(lambda x: x.strip(), line.split(','))
-        
-        if( player1 not in stats ):
-            stats[player1] = {'rank': 1000, 'matches': 0, 'wins': 0, 'losses': 0, 'history': []}
-        
-        if( player2 not in stats ):
-            stats[player2] = {'rank': 1000, 'matches': 0, 'wins': 0, 'losses': 0, 'history': []}
 
-        e1 = 1.0/(1.0 + pow(10.0,(stats[player2]['rank']-stats[player1]['rank'])/400.0))
-        e2 = 1.0/(1.0 + pow(10.0,(stats[player1]['rank']-stats[player2]['rank'])/400.0))
-
+        # Parse match information.
         (s1, s2, total, w1, w2) = (0.0, 0.0, 0.0, 0.0, 0.0)
         for match in map(lambda x: x.strip(), matches.split('|')):
             (p1, p2) = map(lambda x: float(x), match.split('-'))
@@ -37,6 +90,35 @@ def calculate_player_stats(games_log):
                 w1 += 1.0
             elif( p2 > p1 ):
                 w2 += 1.0
+
+        if player1 not in stats :
+            # Calculate the provisional rankings.
+            average = 0.0
+            for player in stats:
+                average += stats[player]['rank']
+            average /= len(stats)
+
+            stats[player1] = {'rank': average + 400.0 * (w1-w2)/(w1+w2), \
+                              'wins': 0, \
+                              'losses': 0, \
+                              'matches': 0, \
+                              'history': []}
+
+        if player2 not in stats :
+            # Calculate the provisional rankings.
+            average = 0.0
+            for player in stats:
+                average += stats[player]['rank']
+            average /= len(stats)
+
+            stats[player2] = {'rank': average + 400.0 * (w2-w1)/(w1+w2), \
+                              'wins': 0, \
+                              'losses': 0, \
+                              'matches': 0, \
+                              'history': []}
+
+        e1 = 1.0/(1.0 + pow(10.0,(stats[player2]['rank']-stats[player1]['rank'])/400.0))
+        e2 = 1.0/(1.0 + pow(10.0,(stats[player1]['rank']-stats[player2]['rank'])/400.0))
 
         s1 *= w1
         s2 *= w2
@@ -125,7 +207,9 @@ def gen_player_page(player):
     f.close()
 
     html_items = map(player_match_to_html, player['history'])
-    match_items = reduce(lambda x,y: x+'\n'+' '*12+y, html_items[1:], ' '*12+html_items[0])
+    match_items = ''
+    if len(html_items) > 0:
+        match_items = reduce(lambda x,y: x+'\n'+' '*12+y, html_items[1:], ' '*12+html_items[0])
     player_html = template.replace('_MATCH_ITEMS_', match_items)
     player_html = player_html.replace('_PLAYER_NAME_', player['name'])
     player_html = player_html.replace('_PLAYER_RANK_', '%i' % (round(player['rank'])))
@@ -155,13 +239,16 @@ def gen_matches_page():
     html_items = map()
 
 def go():
-    stats = calculate_player_stats('games.log')
+
+    initial_stats = calculate_initial_stats('initial.log')
+
+    stats = calculate_player_stats('games.log', initial_stats)
 
     gen_rankings_page(stats)
 
     for player in stats:
         gen_player_page(player)
 
-    print calculate_past_matches('games.log')
+#    print calculate_past_matches('games.log')
 
 go()
