@@ -56,7 +56,7 @@ def calculate_initial_stats(log):
     exec ave_func_string in globals()
 
     # Compute the initial rankings
-    rankings = fmin_slsqp(min_func, [1500]*len(initial_stats), eqcons=[ave_func], acc=1e-16, iter=1e6)
+    rankings = fmin_slsqp(min_func, [1500]*len(initial_stats), eqcons=[ave_func], acc=1e-16, iter=1e6, iprint=0)
 
     for player in initial_stats:
         initial_stats[player] = {'rank': rankings[index_map[player]],\
@@ -226,29 +226,41 @@ def match_to_html(match):
     html += "vs. "
     html += "<span class='player2'>" + match['player2'] + "</span>, "
     html += "<span class='sets'>"
-    html += "<span class='set'>" + ''.join(match['sets'], "</span>, <span class='set'>") + "</span>"
+    html += "<span class='set'>" + "</span>, <span class='set'>".join(match['sets']) + "</span>"
     html += "</span>"
     return html
 
-
-def gen_matches_page():
+def gen_matches_page(matches):
     f = open('matches.template.html')
     template = f.read()
     f.close()
 
-    html_items = map()
+    html_items = map(match_to_html, matches)
+    match_items = ''
+    if len(html_items) > 0:
+        match_items = reduce(lambda x,y: x+'\n'+' '*12+y, html_items[1:], ' '*12+html_items[0])
+    matches_html = template.replace('_MATCH_ITEMS_', match_items)
+
+    f = open('web/matches.html', 'w')
+    f.write(matches_html)
+    f.close()
 
 def go():
-
+    print "Calculating initial player stats..."
     initial_stats = calculate_initial_stats('initial.log')
 
+    print "Calculating player rankings..."
     stats = calculate_player_stats('games.log', initial_stats)
 
+    print "Generating rankings page..."
     gen_rankings_page(stats)
 
+    print "Generating player pages..."
     for player in stats:
         gen_player_page(player)
 
-#    print calculate_past_matches('games.log')
+    print "Generating matches page..."
+    matches = calculate_past_matches('games.log')
+    gen_matches_page(matches)
 
 go()
