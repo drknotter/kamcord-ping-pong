@@ -1,8 +1,19 @@
+html {
+    background-color: #1f2227;
+    color: white;
+}
+
+@font-face {
+    font-family: Kamcord;
+    src: url(../fonts/ProximaNova-Light.otf);
+}
+
 body {
     margin: 0px;
     width: 700px;
     margin-left: auto;
     margin-right: auto;
+    font-family: Kamcord;
 }
 
 #header {
@@ -15,15 +26,20 @@ body {
 
 #header > li {
     display: inline-block;
-    width: 340px;
-    margin: 5px;
+    width: 345px;
+    margin-left: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
-    background-color: rgb(200,200,200);
+    background-color: #2b8050;
+}
+
+#header > li:first-child {
+    margin-left: 0px;
 }
 
 #header > li:hover {
-    background-color: rgb(220,220,220);
+    background-color: #3eb872;
 }
 
 #header > li > a {
@@ -31,6 +47,6 @@ body {
     width: 330px;
     padding: 5px;
     text-decoration: none;
-    font: bold 30px/35px Helvetica, sans-serif;
-    color: rgb(64,96,255);
+    font-size: 30px;
+    color: #113420;
 }

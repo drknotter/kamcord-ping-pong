@@ -1,0 +1,63 @@
+ol {
+    margin: 0px;
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0px;
+    font-size: 20px;
+    background-color: white;
+}
+
+ol > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#headers {
+    background: none;
+}
+
+#headers > li:first-child {
+    list-style-type: none;
+}
+
+#name_header {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    font-size: 25px;
+}
+
+#rank_header {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    font-size: 25px;
+}
+
+.player_name {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    text-decoration: none;
+    color: black;
+}
+
+.player_rank {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    color: black;
+}
+
+ol > li:nth-child(2n) {
+    background-color: rgb(230,230,230);
+}
+
+.player {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.player:hover {
+    background-color: #9cdbb7;
+}

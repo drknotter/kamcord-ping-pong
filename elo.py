@@ -174,8 +174,9 @@ def calculate_past_matches(games_log):
 
 def player_to_html(player):
     html = "<li>"
-    html += "<a class='player_name' href='players/" + player['name'].replace(' ','-') + ".html'>" + player['name'] + "</a>: "
-    html += "<span class='player_rank'>" + str(int(player['rank'])) + "</span>"
+    html += "<a class='player' href='players/" + player['name'].replace(' ','-') + ".html'>"
+    html += "<span class='player_name'>" + player['name'] + "</span>"
+    html += "<span class='player_rank'>" + str(int(player['rank'])) + "</span></a>"
     html += "</li>"
     return html
 
