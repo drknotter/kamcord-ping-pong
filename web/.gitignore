@@ -7,3 +7,6 @@
 # and the css directory
 !css/
 !css/*
+# and the img directory
+!img/
+!img/*

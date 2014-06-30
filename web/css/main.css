@@ -16,6 +16,23 @@ body {
     font-family: Kamcord;
 }
 
+#title {
+    font-size: 0px;
+}
+#title > img {
+    display: inline-block;
+    width: 15%;
+    vertical-align: middle;
+}
+
+#title > #kamcord {
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+    font-size: 45px;
+    vertical-align: middle;
+}
+
 #header {
     display: inline-block;
     margin: 0px;
