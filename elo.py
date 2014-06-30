@@ -165,7 +165,21 @@ def calculate_past_matches(games_log):
 
         (date, player1, player2, set_string) = map(lambda x: x.strip(), line.split(','))
         sets = set_string.split('|')
-        matches.append({'date': date, 'player1': player1, 'player2': player2, 'sets': sets})
+
+        (w1, w2) = (0, 0)
+        for s in sets:
+            (p1, p2) = map(lambda x: int(x), s.split('-'))
+            if p1 > p2:
+                w1 += 1
+            elif p2 > p1:
+                w2 += 1
+        winner = 0
+        if w1 > w2:
+            winner = 1
+        elif w2 > w1:
+            winner = 2
+
+        matches.append({'date': date, 'player1': player1, 'player2': player2, 'sets': sets, 'winner': winner})
 
     f.close()
 
@@ -222,12 +236,13 @@ def gen_player_page(player):
 
 def match_to_html(match):
     html = "<li>"
-    html += "<span class='date'>" + match['date'] + "</span>: "
-    html += "<span class='player1'>" + match['player1'] + "</span> "
-    html += "vs. "
-    html += "<span class='player2'>" + match['player2'] + "</span>, "
+    html += "<span class='date'>" + match['date'] + "</span>"
+    winner = match['winner']
+    html += "<span class='player1" + (" winner" if winner == 1 else " loser") + "'>" + match['player1'] + "</span>"
+    html += "<span class='vs'>vs.</span>"
+    html += "<span class='player2" + (" winner" if winner == 2 else " loser") + "'>" + match['player2'] + "</span>"
     html += "<span class='sets'>"
-    html += "<span class='set'>" + "</span>, <span class='set'>".join(match['sets']) + "</span>"
+    html += "<span class='set'>" + "</span><span class='set'>".join(match['sets']) + "</span>"
     html += "</span>"
     return html
 

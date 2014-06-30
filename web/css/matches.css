@@ -1,0 +1,101 @@
+#matches {
+    margin: 0px;
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    list-style-type: none;
+}
+
+#matches > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#headers {
+    background: none;
+}
+
+#date_header {
+    display: inline-block;
+    text-align: center;
+    width: 25%;
+    font-size: 25px;
+}
+
+#player1_header {
+    display: inline-block;
+    text-align: center;
+    width: 20%;
+    font-size: 25px;
+}
+
+#vs_header {
+    display: inline-block;
+    text-align: center;
+    width: 10%;
+    font-size: 25px;
+}
+
+#player2_header {
+    display: inline-block;
+    text-align: center;
+    width: 20%;
+    font-size: 25px;
+}
+
+#sets_header {
+    display: inline-block;
+    text-align: center;
+    width: 25%;
+    font-size: 25px;
+}
+
+#matches > li span {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+#matches > li:nth-child(2n) {
+    background-color: rgb(230,230,230);
+}
+
+#matches > li:hover {
+    background-color: #9cdbb7;
+}
+
+.date {
+    width: 25%;
+}
+
+.player1 {
+    width: 20%;
+}
+
+.vs {
+    width: 10%;
+}
+
+.player2 {
+    width: 20%;
+}
+
+.sets {
+    width: 25%;
+}
+
+.set {
+    width: 33%;
+}
+
+.winner {
+    background-color: rgba(100,255,100,0.5);
+}
+
+.loser {
+    background-color: rgba(255,100,100,0.5);
+}
