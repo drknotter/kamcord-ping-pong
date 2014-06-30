@@ -1,0 +1,104 @@
+#player_header {
+    font-size: 0px;
+    margin-top: 10px;
+}
+#player_header > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+}
+
+#name_header {
+    width: 33%;
+}
+#rank_header {
+    width: 33%;
+}
+#record_header {
+    width: 34%;
+}
+
+#player {
+    font-size: 0px;
+    margin-top: -10px;
+}
+#player > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 55px;
+}
+
+#player_name {
+    width: 33%;
+}
+#player_rank {
+    width: 33%;
+}
+#player_record {
+    width: 33%;
+}
+
+#matches_header {
+    font-size: 0px;
+    margin-top: 10px;
+}
+#matches_header > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+}
+
+#date_header {
+    width: 30%;
+}
+#opponent_header {
+    width: 40%;
+}
+#score_header {
+    width: 30%;
+}
+
+#match_list {
+    margin: 0px;
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    list-style-type: none;
+}
+
+#match_list > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#match_list > li a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#match_list > li span {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+#match_list > li:nth-child(2n) {
+    background-color: rgb(230,230,230);
+}
+#match_list > li:hover {
+    background-color: #9cdbb7;
+}
+
+.date {
+    width: 30%;
+}
+.challenged {
+    width: 20%;
+}
+.other_player {
+    width: 20%;
+}
+.score {
+    width: 30%;
+}

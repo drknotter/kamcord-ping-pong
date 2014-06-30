@@ -209,10 +209,12 @@ def gen_rankings_page(stats):
 
 def player_match_to_html(match):
     html = "<li>"
-    html += "<span class='date'>" + match['date'] + "</span> - "
-    html += "<span class='challenged'>" + ("Challenged" if match['challenger'] else "Challenged by") + "</span> "
-    html += "<span class='other_player'>" + match['versus'] + "</span> - "
+    html += "<a href='" + match['versus'] + ".html'>"
+    html += "<span class='date'>" + match['date'] + "</span>"
+    html += "<span class='challenged'>" + ("Challenged" if match['challenger'] else "Challenged by") + "</span>"
+    html += "<span class='other_player'>" + match['versus'] + "</span>"
     html += "<span class='score'>" + match['score'] + "</span>"
+    html += "</a>"
     html += "</li>"
     return html
 
@@ -238,9 +240,13 @@ def match_to_html(match):
     html = "<li>"
     html += "<span class='date'>" + match['date'] + "</span>"
     winner = match['winner']
-    html += "<span class='player1" + (" winner" if winner == 1 else " loser") + "'>" + match['player1'] + "</span>"
+    html += "<a href='players/" + match['player1'] + ".html' class='" + ("winner" if winner == 1 else "loser") + "'>"
+    html += "<span class='player1'>" + match['player1'] + "</span>"
+    html += "</a>"
     html += "<span class='vs'>vs.</span>"
-    html += "<span class='player2" + (" winner" if winner == 2 else " loser") + "'>" + match['player2'] + "</span>"
+    html += "<a href='players/" + match['player2'] + ".html' class='" + ("winner" if winner == 2 else "loser") + "'>"
+    html += "<span class='player2'>" + match['player2'] + "</span>"
+    html += "</a>"
     html += "<span class='sets'>"
     html += "<span class='set'>" + "</span><span class='set'>".join(match['sets']) + "</span>"
     html += "</span>"

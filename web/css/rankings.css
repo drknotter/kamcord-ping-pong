@@ -12,12 +12,8 @@ ol > li {
     padding-bottom: 5px;
 }
 
-#headers {
-    background: none;
-}
-
-#headers > li:first-child {
-    list-style-type: none;
+#rankings_header {
+    margin-top: 10px;
 }
 
 #name_header {

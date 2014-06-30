@@ -14,43 +14,34 @@
     padding-bottom: 5px;
 }
 
-#headers {
-    background: none;
+#matches_header {
+    margin-top: 10px;
+}
+
+#matches_header > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
 }
 
 #date_header {
-    display: inline-block;
-    text-align: center;
     width: 25%;
-    font-size: 25px;
 }
 
 #player1_header {
-    display: inline-block;
-    text-align: center;
     width: 20%;
-    font-size: 25px;
 }
 
 #vs_header {
-    display: inline-block;
-    text-align: center;
     width: 10%;
-    font-size: 25px;
 }
 
 #player2_header {
-    display: inline-block;
-    text-align: center;
     width: 20%;
-    font-size: 25px;
 }
 
 #sets_header {
-    display: inline-block;
-    text-align: center;
     width: 25%;
-    font-size: 25px;
 }
 
 #matches > li span {
@@ -94,8 +85,12 @@
 
 .winner {
     background-color: rgba(100,255,100,0.5);
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .loser {
     background-color: rgba(255,100,100,0.5);
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

@@ -31,7 +31,7 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
-    background-color: #2b8050;
+    background-color: #3eb872;
 }
 
 #header > li:first-child {
@@ -39,7 +39,7 @@ body {
 }
 
 #header > li:hover {
-    background-color: #3eb872;
+    background-color: #2b8050;
 }
 
 #header > li > a {
