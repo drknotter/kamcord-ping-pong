@@ -80,7 +80,12 @@
 }
 
 .set {
-    width: 33%;
+    padding-right: 7%;
+    width: 24%;
+}
+
+.set:first-child {
+    padding-left: 7%;
 }
 
 .winner {
