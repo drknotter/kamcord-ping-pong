@@ -194,12 +194,12 @@ def player_to_html(player):
     html += "</li>"
     return html
 
-def gen_rankings_page(stats):
+def gen_rankings_page(stats, inactive_players):
     f = open('rankings.template.html')
     template = f.read()
     f.close()
 
-    html_items = map(player_to_html, stats)
+    html_items = map(player_to_html, filter(lambda x: x['name'] not in inactive_players, stats))
     ranking_items = reduce(lambda x,y: x+'\n'+' '*12+y, html_items[1:], ' '*12+html_items[0])
     rankings_html = template.replace('_RANKING_ITEMS_', ranking_items)
 
@@ -267,7 +267,15 @@ def gen_matches_page(matches):
     f.write(matches_html)
     f.close()
 
+def load_inactive_players(filename):
+    f = open(filename)
+    players = set(map(lambda x: x.strip(), f.readlines()))
+    f.close()
+    return players
+
 def go():
+    inactive_players = load_inactive_players('inactive.players')
+
     print "Calculating initial player stats..."
     initial_stats = calculate_initial_stats('initial.log')
 
@@ -275,11 +283,12 @@ def go():
     stats = calculate_player_stats('games.log', initial_stats)
 
     print "Generating rankings page..."
-    gen_rankings_page(stats)
+    gen_rankings_page(stats, inactive_players)
 
     print "Generating player pages..."
     for player in stats:
-        gen_player_page(player)
+        if player['name'] not in inactive_players:
+            gen_player_page(player)
 
     print "Generating matches page..."
     matches = calculate_past_matches('games.log')
