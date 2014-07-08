@@ -54,7 +54,7 @@ def calculate_initial_stats(log):
     min_func_string += " + ".join(func_calls)
     exec min_func_string in globals()
 
-    # Construct the contraint equation.
+    # Construct the constraint equation.
     ave_func_string = "def ave_func(x):\n    return (" + " + ".join(map(lambda i: "x["+str(i)+"]", range(len(initial_stats)))) + ")/" + str(float(len(initial_stats))) + " - 1500.0"
     exec ave_func_string in globals()
 
@@ -98,13 +98,14 @@ def calculate_player_stats(games_log, initial_stats):
             # Calculate the provisional rankings.
             average = 0.0
             if len(stats) == 0:
-                average = 1500.0
+                average = 1000.0
             else:
                 for player in stats:
                     average += stats[player]['rank']
                 average /= len(stats)
 
-            stats[player1] = {'rank': average + 400.0 * (w1-w2)/(w1+w2), \
+            uncertainty = min(w1+w2,100.0) / 100.0
+            stats[player1] = {'rank': average + 400.0 * (w1-w2)/(w1+w2) * uncertainty, \
                               'wins': 0, \
                               'losses': 0, \
                               'matches': 0, \
@@ -114,13 +115,14 @@ def calculate_player_stats(games_log, initial_stats):
             # Calculate the provisional rankings.
             average = 0.0
             if len(stats) == 0:
-                average = 1500.0
+                average = 1000.0
             else:
                 for player in stats:
                     average += stats[player]['rank']
                 average /= len(stats)
 
-            stats[player2] = {'rank': average + 400.0 * (w2-w1)/(w1+w2), \
+            uncertainty = min(w1+w2,100.0) / 100.0
+            stats[player2] = {'rank': average + 400.0 * (w2-w1)/(w1+w2) * uncertainty, \
                               'wins': 0, \
                               'losses': 0, \
                               'matches': 0, \
