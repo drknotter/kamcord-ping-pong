@@ -4,7 +4,7 @@ from scipy.optimize import fmin_slsqp
 
 def k_factor(player):
     if( player['matches'] < 20 ):
-        return 32
+        return 64
     elif( player['rank'] < 2000 ):
         return 24
     else:
