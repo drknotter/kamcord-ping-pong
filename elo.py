@@ -39,6 +39,9 @@ def calculate_initial_stats(log):
         initial_stats[player2][player1] = {'wins': w2, 'games': w1 + w2}
     f.close()
 
+    if len(initial_stats) == 0:
+        return {}
+
     # Construct the function to minimize.
     min_func_string = "def min_func(x):\n    return "
     func_calls = []
@@ -94,9 +97,12 @@ def calculate_player_stats(games_log, initial_stats):
         if player1 not in stats :
             # Calculate the provisional rankings.
             average = 0.0
-            for player in stats:
-                average += stats[player]['rank']
-            average /= len(stats)
+            if len(stats) == 0:
+                average = 1500.0
+            else:
+                for player in stats:
+                    average += stats[player]['rank']
+                average /= len(stats)
 
             stats[player1] = {'rank': average + 400.0 * (w1-w2)/(w1+w2), \
                               'wins': 0, \
@@ -107,9 +113,12 @@ def calculate_player_stats(games_log, initial_stats):
         if player2 not in stats :
             # Calculate the provisional rankings.
             average = 0.0
-            for player in stats:
-                average += stats[player]['rank']
-            average /= len(stats)
+            if len(stats) == 0:
+                average = 1500.0
+            else:
+                for player in stats:
+                    average += stats[player]['rank']
+                average /= len(stats)
 
             stats[player2] = {'rank': average + 400.0 * (w2-w1)/(w1+w2), \
                               'wins': 0, \
