@@ -33,22 +33,22 @@ function genMatches(snapshot)
 
 function genMatchHtml(match, winner)
 {
-    html = "<li>";
-    html += "<span class='date'>" + match['date'] + "</span>";
-    html += "<a href='players/" + match['player1'] + ".html' class='" + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
-    html += "<span class='player1'>" + match['player1'] + "</span>";
-    html += "</a>";
-    html += "<span class='vs'>vs.</span>";
-    html += "<a href='players/" + match['player2'] + ".html' class='" + (winner == 2 ? "winner" : (winner == 1 ) ? "loser" : "") + "'>";
-    html += "<span class='player2'>" + match['player2'] + "</span>";
-    html += "</a>";
-    html += "<span class='sets'>";
+    var htmlString = "<li>";
+    htmlString += "<span class='date'>" + match['date'] + "</span>";
+    htmlString += "<a href='players/" + match['player1'] + ".html' class='" + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
+    htmlString += "<span class='player1'>" + match['player1'] + "</span>";
+    htmlString += "</a>";
+    htmlString += "<span class='vs'>vs.</span>";
+    htmlString += "<a href='players/" + match['player2'] + ".html' class='" + (winner == 2 ? "winner" : (winner == 1 ) ? "loser" : "") + "'>";
+    htmlString += "<span class='player2'>" + match['player2'] + "</span>";
+    htmlString += "</a>";
+    htmlString += "<span class='sets'>";
     for( var s=0; s<match['sets'].length; s++ )
     {
-        html += "<span class='set'>" + match['sets'][s] + "</span>";
+        htmlString += "<span class='set'>" + match['sets'][s] + "</span>";
     }
-    html += "</span>";
-    html += "</li>";
-    return html;
+    htmlString += "</span>";
+    htmlString += "</li>";
+    return htmlString;
 }
 
