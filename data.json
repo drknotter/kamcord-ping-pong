@@ -43,55 +43,85 @@
                 "date": "2014-07-03", 
                 "player1": "Ben", 
                 "player2": "Jenn", 
-                "scores": "9-11"
+                "sets": [
+                    "9-11"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Kevin", 
                 "player2": "Phoebe", 
-                "scores": "11-0|11-1"
+                "sets": [
+                    "11-0", 
+                    "11-1"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Danny", 
                 "player2": "Adi", 
-                "scores": "11-8|5-11|11-7"
+                "sets": [
+                    "11-8", 
+                    "5-11", 
+                    "11-7"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Benji", 
                 "player2": "Jenn", 
-                "scores": "11-3|11-3"
+                "sets": [
+                    "11-3", 
+                    "11-3"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Pat", 
                 "player2": "Yoshi", 
-                "scores": "11-7|7-11|5-11"
+                "sets": [
+                    "11-7", 
+                    "7-11", 
+                    "5-11"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Kevin", 
                 "player2": "Danny", 
-                "scores": "6-11|11-4|11-5"
+                "sets": [
+                    "6-11", 
+                    "11-4", 
+                    "11-5"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Benji", 
                 "player2": "Yoshi", 
-                "scores": "11-3|11-7"
+                "sets": [
+                    "11-3", 
+                    "11-7"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Danny", 
                 "player2": "Yoshi", 
-                "scores": "11-8|11-5"
+                "sets": [
+                    "11-8", 
+                    "11-5"
+                ]
             }, 
             {
                 "date": "2014-07-03", 
                 "player1": "Benji", 
                 "player2": "Kevin", 
-                "scores": "8-11|11-8|12-10"
+                "sets": [
+                    "8-11", 
+                    "11-8", 
+                    "12-10"
+                ]
             }
         ]
     }
