@@ -1,6 +1,6 @@
 {
     "ping-pong": {
-        "initial": [
+        "players": [
             {
                 "name": "Ben", 
                 "rank": 1500
