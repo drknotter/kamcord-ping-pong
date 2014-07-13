@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/player.css">
+        <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+        <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
+        <script type='text/javascript' src='js/elo.js'></script>
+        <script type='text/javascript' src='js/player.js'></script>
+        <title></title>
+    </head>
+    <body>
+        <div id="title">
+            <img src="img/kamcord.jpg" />
+            <span id="kamcord">Kamcord Ping-Pong<br />Player Rank</span>
+            <img src="img/kamcord.jpg" />
+        </div>
+        <ul id="header">
+            <li><a href="rankings.html">Rankings</a></li>
+            <li><a href="matches.html">Matches</a></li>
+        </ul>
+        <div id="player_header">
+            <span id="name_header">Name</span>
+            <span id="rank_header">Rank</span>
+            <span id="record_header">Record</span>
+        </div>
+        <div id="player">
+            <span id="player_name"></span>
+            <span id="player_rank"></span>
+            <span id="player_record"></span>
+        </div>
+        <div id="matches_header">
+            <span id="date_header">Date</span>
+            <span id="opponent_header">Opponent</span>
+            <span id="score_header">Score</span>
+        </div>
+        <ul id="match_list">
+        </ul>
+    </body>
+</html>
