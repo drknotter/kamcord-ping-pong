@@ -158,7 +158,7 @@ Elo.setPingPong = function(data)
             PingPong.push(player);
         }
     }
-    PingPong.sort(function(a,b){return a["rank"]<=b["rank"]});
+    PingPong.sort(function(a,b){return b['rank']-a['rank']});
 }
 
 Elo.playerExists = function(players, playerName)
