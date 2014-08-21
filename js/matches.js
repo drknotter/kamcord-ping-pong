@@ -13,6 +13,7 @@ function handleMatches(snapshot)
 
 function genMatchesHtml(matches)
 {
+    $("#matches").empty();
     for( var m=0; m<matches.length; m++ )
     {
         $("#matches").append(genMatchHtml(matches[m]));

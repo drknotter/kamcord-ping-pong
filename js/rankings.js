@@ -13,6 +13,7 @@ function handleRankings(snapshot)
 
 function genRankingsHtml(players)
 {
+    $("#rankings").empty();
     for( var p=0; p<players.length; p++ )
     {
         $("#rankings").append(genRankHtml(players[p]));

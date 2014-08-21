@@ -39,6 +39,7 @@ function handlePlayer(snapshot)
 
 function genPlayerHistoryHtml(history)
 {
+    $("#match_list").empty();
     for( var m=0; m<history.length; m++ )
     {
         $("#match_list").append(genPlayerMatchHtml(history[m]));
