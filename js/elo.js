@@ -48,14 +48,12 @@ Elo.setPingPong = function(data)
     {
         // Parse match information.
         var sets = matches[m]["sets"];
-        var s1 = 0.0, s2=0.0, total=0.0, w1=0.0, w2=0.0;
+        var w1=0.0, w2=0.0;
         for( var s=0; s<sets.length; s++ )
         {
             scores = sets[s].split("-");
             var p1 = parseFloat(scores[0]);
             var p2 = parseFloat(scores[1]);
-            s1 += p1;
-            s2 += p2;
             if( p1 > p2 )
             {
                 w1 += 1.0;
@@ -124,8 +122,8 @@ Elo.setPingPong = function(data)
         var e1 = 1.0/(1.0 + Math.pow(10.0,(stats[player2]['rank']-stats[player1]['rank'])/400.0));
         var e2 = 1.0/(1.0 + Math.pow(10.0,(stats[player1]['rank']-stats[player2]['rank'])/400.0));
 
-        s1 = w1 > w2 ? 1.0 : 0.0;
-        s2 = w2 > w1 ? 1.0 : 0.0;
+        var s1 = w1 > w2 ? 1.0 : 0.0;
+        var s2 = w2 > w1 ? 1.0 : 0.0;
 
         // Adjust the players' ranks.
         stats[player1]['rank'] = stats[player1]['rank'] + Elo.kFactor(stats[player1]) * (s1 - e1)
