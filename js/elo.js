@@ -39,7 +39,8 @@ Elo.setPingPong = function(data)
                 "wins": 0,
                 "losses": 0,
                 "matches": 0,
-                "history": []
+                "history": [],
+                "inactive": players[p]["inactive"]
             };
     }
 

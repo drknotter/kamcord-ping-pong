@@ -45,11 +45,26 @@ ol > li {
     color: black;
 }
 
+.player_inactive {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(128,128,128);
+    background-color: rgba(255,255,255,0.75);
+}
+
 ol > li:nth-child(2n) {
     background-color: rgb(230,230,230);
 }
 
 .player {
+    position: relative;
     padding-top: 5px;
     padding-bottom: 5px;
 }

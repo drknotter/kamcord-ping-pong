@@ -3,7 +3,8 @@
         "players": [
             {
                 "name": "Benji",
-                "rank": 1839
+                "rank": 1839,
+                "inactive": true
             },
             {
                 "name": "Justin",
@@ -47,7 +48,8 @@
             },
             {
                 "name": "Phoebe",
-                "rank": 922
+                "rank": 922,
+                "inactive": true
             },
             {
                 "name": "ET",
