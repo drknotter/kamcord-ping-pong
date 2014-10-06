@@ -124,11 +124,8 @@ Elo.setPingPong = function(data)
         var e1 = 1.0/(1.0 + Math.pow(10.0,(stats[player2]['rank']-stats[player1]['rank'])/400.0));
         var e2 = 1.0/(1.0 + Math.pow(10.0,(stats[player1]['rank']-stats[player2]['rank'])/400.0));
 
-        s1 *= w1;
-        s2 *= w2;
-        total = s1 + s2;
-        s1 /= total;
-        s2 /= total;
+        s1 = w1 > w2 ? 1.0 : 0.0;
+        s2 = w2 > w1 ? 1.0 : 0.0;
 
         // Adjust the players' ranks.
         stats[player1]['rank'] = stats[player1]['rank'] + Elo.kFactor(stats[player1]) * (s1 - e1)
