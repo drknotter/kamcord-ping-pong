@@ -54,6 +54,11 @@
             {
                 "name": "ET",
                 "rank": 1498
+            },
+            {
+                "name": "Haitao",
+                "rank": 1500,
+                "inactive": true
             }
         ], 
         "matches": [
@@ -364,15 +369,6 @@
                 "sets": [
                     "11-9",
                     "11-3"
-                ]
-            },
-            {
-                "date": "2014-10-30",
-                "player1": "Aaron",
-                "player2": "Adi",
-                "sets": [
-                    "7-11",
-                    "7-11"
                 ]
             }
         ]
