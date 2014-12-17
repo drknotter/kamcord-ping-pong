@@ -4,18 +4,9 @@ $(document).ready(function()
 {
     var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
     pingPongRef.on("value",handleRankings);
-    
-    $("#new").on("click", function()
-    {
-        $("#new_match_background").fadeIn();
-    });
-    $("#hidden").on("click", function()
-    {
-        show_inactive = !show_inactive;
-        genRankingsHtml(PingPong);
-        setShowHideInactive();
-    });
 
+    initClickHandlers();
+    initNewMatchDialog();
     setShowHideInactive();
 });
 
@@ -53,6 +44,31 @@ function genRankHtml(player)
     return htmlString;
 }
 
+function initClickHandlers()
+{
+    $("#new").on("click", function()
+    {
+        initNewMatchDialog();
+        $("body").scrollTop(0);
+        $("#new_match_background").fadeIn(200);
+    });
+    $("#hidden").on("click", function()
+    {
+        show_inactive = !show_inactive;
+        genRankingsHtml(PingPong);
+        setShowHideInactive();
+    });
+
+    $("#add_set").on("click", function()
+    {
+        $("#sets_input").append(genMatchHtml());
+    });
+    $("#close_new_match,#cancel").on("click", function()
+    {
+        $("#new_match_background").fadeOut(200);
+    });
+}
+
 function setShowHideInactive()
 {
     if( show_inactive )
@@ -63,4 +79,19 @@ function setShowHideInactive()
     {
         $("#hidden").text("Show Inactive");
     }
+}
+
+function initNewMatchDialog()
+{
+    $("#sets_input").empty();
+    $("#sets_input").append(genMatchHtml());
+}
+
+
+function genMatchHtml()
+{
+    var htmlString = "<li>";
+    htmlString += "<input class='score player1' /> - <input class='score player2' />"
+    htmlString += "</li>";
+    return htmlString;
 }
