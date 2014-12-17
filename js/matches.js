@@ -3,8 +3,8 @@ var max_sets = 3;
 
 $(document).ready(function()
 {
-    var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
-    pingpongRef.child("matches").on("value", handleMatches);
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/matches/").on("value", handleMatches);
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending/").on("value", handlePending);
     initClickHandlers();
 });
 
@@ -13,6 +13,30 @@ function handleMatches(snapshot)
     var matches = snapshot.val();
     Elo.setMatchWinners(matches);
     genMatchesHtml(matches);
+}
+
+function handlePending(snapshot)
+{
+    var snapshotVals = snapshot.val();
+    var pending = null;
+    if( snapshotVals.constructor != Array )
+    {
+        pending = [];
+        for( var key in snapshotVals )
+        {
+            pending.push(snapshotVals[key])
+        }
+    }
+    else
+    {
+        pending = snapshotVals;
+    }
+
+    if( pending != null )
+    {
+        Elo.setMatchWinners(pending);
+        genPendingMatchesHtml(pending);
+    }
 }
 
 function genMatchesHtml(matches)
@@ -24,10 +48,37 @@ function genMatchesHtml(matches)
     }
 }
 
+function genPendingMatchesHtml(matches)
+{
+    $("#pending").empty();
+    for( var m=0; m<matches.length; m++ )
+    {
+        $("#pending").append(genPendingHtml(matches[m]));
+    }
+
+}
+
 function genMatchHtml(match)
 {
-    var winner = match["winner"];
     var htmlString = "<li>";
+    htmlString += genMatchInfoHtml(match);
+    htmlString += "</li>";
+    return htmlString;
+}
+
+function genPendingHtml(match)
+{
+    var htmlString = "<li>";
+    htmlString += "<div class='pending'>PENDING</div>";
+    htmlString += genMatchInfoHtml(match);
+    htmlString += "</li>";
+    return htmlString;
+}
+
+function genMatchInfoHtml(match)
+{
+    var htmlString = "";
+    var winner = match["winner"];
     htmlString += "<span class='date'>" + match['date'] + "</span>";
     htmlString += "<a href='player.html?n=" + match['player1'] + "' class='" + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
     htmlString += "<span class='player1'>" + match['player1'] + "</span>";
@@ -42,7 +93,6 @@ function genMatchHtml(match)
         htmlString += "<span class='set'>" + match['sets'][s] + "</span>";
     }
     htmlString += "</span>";
-    htmlString += "</li>";
     return htmlString;
 }
 
@@ -75,6 +125,10 @@ function initClickHandlers()
     {
         $("#new_match_background").fadeOut(200);
     });
+   $("#submit").on("click", function()
+   {
+        submitNewMatch();
+   });
 }
 
 function initNewMatchDialog()
@@ -84,11 +138,41 @@ function initNewMatchDialog()
     n_sets = 1;
 }
 
-
 function genNewSetHtml()
 {
     var htmlString = "<li>";
     htmlString += "<input class='score player1' /> - <input class='score player2' />"
     htmlString += "</li>";
     return htmlString;
+}
+
+function submitNewMatch()
+{
+    var match = {};
+    var now = new Date();
+    match['date'] = "{0}-{1}-{2}".format(now.getFullYear(), now.getMonth()+1, now.getDate());
+    match['player1'] = $("#player1_input").val();
+    match['player2'] = $("#player2_input").val();
+    match['sets'] = [];
+    var sets = $("#sets_input li");
+    for( var s=0; s<sets.length; s++ )
+    {
+        var player1Score = $(sets[s]).children(".player1");
+        var player2Score = $(sets[s]).children(".player2");
+        match['sets'].push("{0}-{1}".format(player1Score.val(), player2Score.val()));
+    }
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending/").push(match);
+    $("#new_match_background").fadeOut(200);
+}
+
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
 }

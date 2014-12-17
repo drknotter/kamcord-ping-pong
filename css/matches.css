@@ -1,4 +1,4 @@
-#matches {
+.match_list {
     margin: 0px;
     margin-top: 10px;
     width: 100%;
@@ -9,9 +9,10 @@
     list-style-type: none;
 }
 
-#matches > li {
+.match_list > li {
     padding-top: 5px;
     padding-bottom: 5px;
+    position: relative;
 }
 
 #matches_header {
@@ -44,18 +45,18 @@
     width: 25%;
 }
 
-#matches > li span {
+.match_list > li span {
     display: inline-block;
     text-align: center;
     text-decoration: none;
     color: black;
 }
 
-#matches > li:nth-child(2n) {
+.match_list > li:nth-child(2n) {
     background-color: rgb(230,230,230);
 }
 
-#matches > li:hover {
+.match_list > li:hover {
     background-color: #9cdbb7;
 }
 
@@ -75,7 +76,7 @@
     width: 20%;
 }
 
-#matches .sets {
+.match_list .sets {
     width: 25%;
     text-align: left;
 }
@@ -100,6 +101,21 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+.pending {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(128,128,128);
+    background-color: rgba(255,255,255,0.75);
+}
+
 
 #footer {
     display: inline-block;
