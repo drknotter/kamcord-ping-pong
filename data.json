@@ -8,7 +8,8 @@
             },
             {
                 "name": "Justin",
-                "rank": 1729
+                "rank": 1729,
+                "inactive": true
             },
             {
                 "name": "Matt",
