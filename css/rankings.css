@@ -87,7 +87,7 @@
 
 #footer > li {
     display: inline-block;
-    width: 345px;
+    width: 700px;
     margin-left: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -105,104 +105,9 @@
 
 #footer > li > span {
     display: inline-block;
-    width: 330px;
+    width: 690px;
     padding: 5px;
     text-decoration: none;
     font-size: 30px;
     color: #113420;
-}
-
-#new_match_background {
-    display: none;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    background: rgba(0,0,0,0.45);
-}
-
-#new_match {
-    position: absolute;
-    width: 600px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: rgb(255,255,255);
-    color: black;
-    font-size: 20px;
-    padding: 15px;
-}
-
-#close_new_match {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 0px;
-    right: 0px;
-    font-size: 30px;
-    text-align: center;
-    cursor: pointer;
-}
-
-#new_match .player_input {
-    width: 48%;
-    display: inline-block;
-}
-
-input {
-    font-size: 20px;
-    font-family: Kamcord;
-}
-
-.player_input input {
-    width: 90%;
-    margin: 10px 5%;
-}
-
-#sets_input {
-    padding-left: 20px;
-    margin-top: 5px;
-}
-
-#sets_input input {
-    width: 45%;
-}
-
-#sets_input li {
-    margin-bottom: 5px;
-}
-
-#new_match_buttons {
-    display: inline-block;
-    margin: 0px;
-    padding: 0px;
-    width: 600px;
-    font-size: 0px;
-}
-
-#new_match_buttons > li {
-    display: inline-block;
-    width: 190px;
-    margin-left: 15px;
-    text-align: center;
-    background-color: rgb(230,230,230);
-}
-
-#new_match_buttons > li:first-child {
-    margin-left: 0px;
-}
-
-#new_match_buttons > li:hover {
-    background-color: #9cdbb7;
-}
-
-#new_match_buttons > li > span {
-    display: inline-block;
-    width: 180px;
-    padding: 5px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #113420;
-    cursor: pointer;
 }

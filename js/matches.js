@@ -1,7 +1,11 @@
+var n_sets = 0;
+var max_sets = 3;
+
 $(document).ready(function()
 {
     var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
     pingpongRef.child("matches").on("value", handleMatches);
+    initClickHandlers();
 });
 
 function handleMatches(snapshot)
@@ -42,3 +46,49 @@ function genMatchHtml(match)
     return htmlString;
 }
 
+function initClickHandlers()
+{
+    $("#new").on("click", function()
+    {
+        initNewMatchDialog();
+        $("body").scrollTop(0);
+        $("#new_match_background").fadeIn(200);
+    });
+
+    $("#add_set").on("click", function()
+    {
+        if( n_sets < max_sets )
+        {
+            $("#sets_input").append(genNewSetHtml());
+            n_sets += 1;
+        }
+    });
+    $("#remove_set").on("click", function()
+    {
+        if( n_sets > 1 )
+        {
+            $("#sets_input li:last-child").remove();
+            n_sets -= 1;
+        }
+    });
+    $("#close_new_match,#cancel").on("click", function()
+    {
+        $("#new_match_background").fadeOut(200);
+    });
+}
+
+function initNewMatchDialog()
+{
+    $("#sets_input").empty();
+    $("#sets_input").append(genNewSetHtml());
+    n_sets = 1;
+}
+
+
+function genNewSetHtml()
+{
+    var htmlString = "<li>";
+    htmlString += "<input class='score player1' /> - <input class='score player2' />"
+    htmlString += "</li>";
+    return htmlString;
+}
