@@ -30,6 +30,13 @@ ol > li {
     font-size: 25px;
 }
 
+#rankings {
+    margin-bottom: 10px;
+}
+.inactive {
+    display: none;
+}
+
 .player_name {
     display: inline-block;
     text-align: center;
@@ -59,7 +66,7 @@ ol > li {
     background-color: rgba(255,255,255,0.75);
 }
 
-ol > li:nth-child(2n) {
+#rankings > li:nth-of-type(even) {
     background-color: rgb(230,230,230);
 }
 
@@ -71,4 +78,60 @@ ol > li:nth-child(2n) {
 
 .player:hover {
     background-color: #9cdbb7;
+}
+
+#footer {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 700px;
+    font-size: 0px;
+}
+
+#footer > li {
+    display: inline-block;
+    width: 345px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #3eb872;
+    cursor: pointer;
+}
+
+#footer > li:first-child {
+    margin-left: 0px;
+}
+
+#footer > li:hover {
+    background-color: #2b8050;
+}
+
+#footer > li > span {
+    display: inline-block;
+    width: 330px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 30px;
+    color: #113420;
+}
+
+#new_match_background {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background: rgba(0,0,0,0.45);
+}
+
+#new_match {
+    position: absolute;
+    width: 450px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(255,255,255);
+    color: black;
 }

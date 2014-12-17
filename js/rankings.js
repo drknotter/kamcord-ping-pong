@@ -1,7 +1,22 @@
+var show_inactive = false;
+
 $(document).ready(function()
 {
     var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
     pingPongRef.on("value",handleRankings);
+    
+    $("#new").on("click", function()
+    {
+        $("#new_match_background").fadeIn();
+    });
+    $("#hidden").on("click", function()
+    {
+        show_inactive = !show_inactive;
+        genRankingsHtml(PingPong);
+        setShowHideInactive();
+    });
+
+    setShowHideInactive();
 });
 
 function handleRankings(snapshot)
@@ -16,7 +31,10 @@ function genRankingsHtml(players)
     $("#rankings").empty();
     for( var p=0; p<players.length; p++ )
     {
-        $("#rankings").append(genRankHtml(players[p]));
+        if( !players[p]['inactive'] || show_inactive )
+        {
+            $("#rankings").append(genRankHtml(players[p]));
+        }
     }
 }
 
@@ -33,4 +51,16 @@ function genRankHtml(player)
     htmlString += "</a>";
     htmlString += "</li>";
     return htmlString;
+}
+
+function setShowHideInactive()
+{
+    if( show_inactive )
+    {
+        $("#hidden").text("Hide Inactive");
+    }
+    else
+    {
+        $("#hidden").text("Show Inactive");
+    }
 }
