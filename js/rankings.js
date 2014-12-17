@@ -6,7 +6,6 @@ $(document).ready(function()
     pingPongRef.on("value",handleRankings);
 
     initClickHandlers();
-    initNewMatchDialog();
     setShowHideInactive();
 });
 
