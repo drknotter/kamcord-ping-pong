@@ -10,32 +10,76 @@ $(document).ready(function()
 
 function handleMatches(snapshot)
 {
-    var matches = snapshot.val();
-    Elo.setMatchWinners(matches);
-    genMatchesHtml(matches);
+    var snapshotVals = snapshot.val();
+    if( snapshotVals == null )
+    {
+        genMatchesHtml([]);
+    }
+
+    var keys = null;
+    var matches = null;
+    if( snapshotVals.constructor != Array )
+    {
+        keys = [];
+        matches = [];
+        for( var key in snapshotVals )
+        {
+            keys.push(key);
+            matches.push(snapshotVals[key])
+        }
+    }
+    else
+    {
+        keys = new Array(snapshotVals.length);
+        for( var i=0; i<keys.length; i++ )
+        {
+            keys[i] = i;
+        }
+        matches = snapshotVals;
+    }
+
+    if( matches != null )
+    {
+        Elo.setMatchWinners(matches);
+        genMatchesHtml(matches);
+    }
+
 }
 
 function handlePending(snapshot)
 {
     var snapshotVals = snapshot.val();
+    if( snapshotVals == null )
+    {
+        genPendingMatchesHtml([], []);
+    }
+
+    var keys = null;
     var pending = null;
     if( snapshotVals.constructor != Array )
     {
+        keys = [];
         pending = [];
         for( var key in snapshotVals )
         {
+            keys.push(key);
             pending.push(snapshotVals[key])
         }
     }
     else
     {
+        keys = new Array(snapshotVals.length);
+        for( var i=0; i<keys.length; i++ )
+        {
+            keys[i] = i;
+        }
         pending = snapshotVals;
     }
 
     if( pending != null )
     {
         Elo.setMatchWinners(pending);
-        genPendingMatchesHtml(pending);
+        genPendingMatchesHtml(keys, pending);
     }
 }
 
@@ -48,12 +92,17 @@ function genMatchesHtml(matches)
     }
 }
 
-function genPendingMatchesHtml(matches)
+function genPendingMatchesHtml(keys, matches)
 {
     $("#pending").empty();
     for( var m=0; m<matches.length; m++ )
     {
-        $("#pending").append(genPendingHtml(matches[m]));
+        var pendingMatch = $("#pending").append(genPendingHtml(matches[m])).children(":last-child");
+        pendingMatch.data({"key": keys[m], "match": matches[m]});
+        pendingMatch.on("click", function()
+        {
+            acceptPendingMatch($(this).data()['key'], $(this).data()['match']);
+        });
     }
 
 }
@@ -125,10 +174,14 @@ function initClickHandlers()
     {
         $("#new_match_background").fadeOut(200);
     });
-   $("#submit").on("click", function()
-   {
+    $("#close_auth").on("click", function()
+    {
+        $("#auth_background").fadeOut(200);
+    });
+    $("#submit").on("click", function()
+    {
         submitNewMatch();
-   });
+    });
 }
 
 function initNewMatchDialog()
@@ -163,6 +216,46 @@ function submitNewMatch()
     }
     new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending/").push(match);
     $("#new_match_background").fadeOut(200);
+}
+
+function acceptPendingMatch(key, match)
+{
+    $("body").scrollTop(0);
+    $("#auth_background").fadeIn(200);
+    $("#pending_match_info").html(genMatchHtml(match));
+    $("#accept").off();
+    $("#reject").off();
+
+    $("#accept").on("click", function()
+    {
+        var ref = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
+        var email = $("#username_input").val();
+        var password = $("#password_input").val();
+        ref.authWithPassword({"email":email, "password": password}, function(error, authData)
+            {
+                if( error )
+                {
+                    console.log("Login failed with error: ", error);
+                }
+                else
+                {
+                    console.log("Login succeeded with authData: ", authData);
+                    var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong");
+                    pingpongRef.child("matches").push(match, function(error)
+                    {
+                        if( error )
+                        {
+                            console.log("push failed with error: ", error);
+                        }
+                        else
+                        {
+                            pingpongRef.child("pending").child(key).remove();
+                        }
+                    });
+                }
+            });
+        $("#auth_background").fadeOut(200);
+    });
 }
 
 if (!String.prototype.format) {

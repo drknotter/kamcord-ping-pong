@@ -114,8 +114,8 @@
     text-decoration: none;
     color: rgb(128,128,128);
     background-color: rgba(255,255,255,0.75);
+    cursor: pointer;
 }
-
 
 #footer {
     display: inline-block;
@@ -153,7 +153,7 @@
     color: #113420;
 }
 
-#new_match_background {
+.popup_background {
     display: none;
     position: absolute;
     top: 0px;
@@ -163,7 +163,7 @@
     background: rgba(0,0,0,0.45);
 }
 
-#new_match {
+.popup {
     position: absolute;
     width: 600px;
     left: 50%;
@@ -175,7 +175,7 @@
     padding: 15px;
 }
 
-#close_new_match {
+.close_button {
     position: absolute;
     width: 40px;
     height: 40px;
@@ -186,7 +186,7 @@
     cursor: pointer;
 }
 
-#new_match .player_input {
+.popup .player_input {
     width: 48%;
     display: inline-block;
 }
@@ -246,4 +246,56 @@ input {
     font-size: 20px;
     color: #113420;
     cursor: pointer;
+}
+
+#pending_match_info {
+    position: relative;
+    font-size: 80%;
+    margin: 15px 0px;
+}
+
+#auth_buttons {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 600px;
+    font-size: 0px;
+}
+
+#auth_buttons > li {
+    display: inline-block;
+    width: 292px;
+    margin-left: 15px;
+    text-align: center;
+    background-color: rgb(230,230,230);
+}
+
+#auth_buttons > li:first-child {
+    margin-left: 0px;
+}
+
+#auth_buttons > li:hover {
+    background-color: #9cdbb7;
+}
+
+#auth_buttons > li > span {
+    display: inline-block;
+    width: 282px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #113420;
+    cursor: pointer;
+}
+
+.popup .auth_input
+{
+    display: inline-block;
+    width: 49%;
+    margin-bottom: 15px;
+}
+
+.popup #username_input, .popup #password_input {
+    width: 95%;
+    display: inline-block;
 }

@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/matches.css">
-        <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+        <script type='text/javascript' src='https://cdn.firebase.com/js/client/2.0.6/firebase.js'></script>
         <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
         <script type='text/javascript' src='js/elo.js'></script>
         <script type='text/javascript' src='js/matches.js'></script>
@@ -29,9 +29,9 @@
             <li><span id="new">New Match</span></li>
         </ul>
 
-        <div id="new_match_background">
-            <div id="new_match">
-                <span id="close_new_match">x</span>
+        <div id="new_match_background" class="popup_background">
+            <div id="new_match" class="popup">
+                <span id="close_new_match" class="close_button">x</span>
                 <div>
                     <span>
                         <span class="player_input">Player 1: <input id="player1_input" type="text" /></span>
@@ -46,6 +46,21 @@
                     <li><span class="button" id="submit">Submit</span></li>
                     <li><span class="button" id="cancel">Cancel</span></li>
                 </ul>
+            </div>
+        </div>
+
+        <div id="auth_background" class="popup_background">
+            <div id="auth" class="popup">
+                <ul id="pending_match_info" class="match_list"></ul>
+                    <span>
+                        <span class="auth_input">Username: <input id="username_input" type="text" /></span>
+                        <span class="auth_input">Password: <input id="password_input" type="password" /></span>
+                    </span>
+                <ul id="auth_buttons">
+                    <li><span class="button" id="accept">Accept</span></li>
+                    <li><span class="button" id="reject">Reject</span></li>
+                </ul>
+                <span id="close_auth" class="close_button">x</span>
             </div>
         </div>
     </body>
