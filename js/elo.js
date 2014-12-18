@@ -27,8 +27,32 @@ Elo.setMatchWinners = function(matches)
 
 Elo.setPingPong = function(data)
 {
-    var players = data["players"];
-    var matches = data["matches"];
+    var players = [];
+    var matches = [];
+
+    if( data["players"].constructor != Array )
+    {
+        for( var key in data["players"] )
+        {
+            players.push(data["players"][key])
+        }
+    }
+    else
+    {
+        players = data["players"];
+    }
+    if( data["matches"].constructor != Array )
+    {
+        for( var key in data["matches"] )
+        {
+            matches.push(data["matches"][key])
+        }
+    }
+    else
+    {
+        matches = data["matches"];
+    }
+
     var stats = {};
 
     for( var p=0; p<players.length; p++ )

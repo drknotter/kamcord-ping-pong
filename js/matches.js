@@ -43,7 +43,6 @@ function handleMatches(snapshot)
         Elo.setMatchWinners(matches);
         genMatchesHtml(matches);
     }
-
 }
 
 function handlePending(snapshot)
