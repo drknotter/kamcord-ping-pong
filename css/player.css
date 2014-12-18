@@ -59,8 +59,7 @@
 }
 
 #match_list {
-    margin: 0px;
-    margin-top: 10px;
+    margin: 10px 0px;
     width: 100%;
     padding-left: 0px;
     font-size: 20px;
@@ -101,4 +100,8 @@
 }
 .score {
     width: 30%;
+}
+
+#player_chart {
+    background-color: white;
 }

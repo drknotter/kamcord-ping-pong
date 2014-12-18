@@ -1,5 +1,6 @@
 $(document).ready(function()
 {
+    initChart();
     var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
     pingpongRef.on("value", handlePlayer);
 });
@@ -35,6 +36,10 @@ function handlePlayer(snapshot)
     $("#player_record").html(player["wins"] + "-" + player["losses"]);
 
     genPlayerHistoryHtml(player["history"]);
+
+    var data = genPlayerData(player["history"]);
+    var ctx = document.getElementById("player_chart").getContext("2d");
+    var player_chart = new Chart(ctx).Line(data);
 }
 
 function genPlayerHistoryHtml(history)
@@ -71,4 +76,38 @@ function getQueryParams(qs) {
     }
 
     return params;
+}
+
+function initChart()
+{
+    $("#player_chart").prop("width", 700);
+    $("#player_chart").prop("height", 400);
+}
+
+function genPlayerData(history)
+{
+    var maxes = {};
+    for( var m=0; m<history.length; m++ ) 
+    {
+        var match = history[m];
+        if( !(match['date'] in maxes) )
+        {
+            maxes[match['date']] = match['current_rank'];
+        }
+        else if( maxes[match['date']] < match['current_rank'] )
+        {
+            maxes[match['date']] = match['current_rank'];
+        }
+    }
+
+    var data = {};
+    data['labels'] = [];
+    data['datasets'] = [{'data':[],'fillColor':"rgba(0,0,0,0)",'strokeColor':"black",'pointColor':"black"}];
+    for( var date in maxes )
+    {
+        data['labels'].push(date);
+        data['datasets'][0]['data'].push(Math.round(maxes[date]));
+    }
+
+    return data;
 }

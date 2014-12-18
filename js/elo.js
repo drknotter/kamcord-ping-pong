@@ -140,8 +140,8 @@ Elo.setPingPong = function(data)
         stats[player2]['losses'] += w1 > w2 ? 1 : 0
 
         // Update the players' histories.
-        stats[player1]['history'].push({'versus':player2, 'score': w1+"-"+w2, 'challenger': true, 'date': matches[m]["date"]})
-        stats[player2]['history'].push({'versus':player1, 'score': w2+"-"+w1, 'challenger': false, 'date': matches[m]["date"]})
+        stats[player1]['history'].push({'versus':player2, 'score': w1+"-"+w2, 'challenger': true, 'date': matches[m]["date"], 'current_rank': stats[player1]['rank']})
+        stats[player2]['history'].push({'versus':player1, 'score': w2+"-"+w1, 'challenger': false, 'date': matches[m]["date"], 'current_rank': stats[player2]['rank']})
     }
 
     PingPong = [];
