@@ -256,6 +256,11 @@ function acceptPendingMatch(key, match)
             });
         $("#auth_background").fadeOut(200);
     });
+
+    $("#reject").on("click", function()
+    {
+        new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending").child(key).remove();
+    });
 }
 
 if (!String.prototype.format) {
