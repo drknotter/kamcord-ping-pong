@@ -260,6 +260,7 @@ function acceptPendingMatch(key, match)
     $("#reject").on("click", function()
     {
         new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending").child(key).remove();
+        $("#auth_background").fadeOut(200);
     });
 }
 
