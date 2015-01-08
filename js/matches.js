@@ -149,7 +149,7 @@ function initClickHandlers()
     $("#new").on("click", function()
     {
         initNewMatchDialog();
-        $("body").scrollTop(0);
+        $(document).scrollTop(0);
         $("#new_match_background").fadeIn(200);
     });
 
