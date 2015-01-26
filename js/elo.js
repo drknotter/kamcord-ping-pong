@@ -30,7 +30,7 @@ Elo.setPingPong = function(data)
     var players = [];
     var matches = [];
 
-    if( data["players"].constructor != Array )
+    if( data["players"] && data["players"].constructor != Array )
     {
         for( var key in data["players"] )
         {
@@ -41,7 +41,7 @@ Elo.setPingPong = function(data)
     {
         players = data["players"];
     }
-    if( data["matches"].constructor != Array )
+    if( data["matches"] && data["matches"].constructor != Array )
     {
         for( var key in data["matches"] )
         {
