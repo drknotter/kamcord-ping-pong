@@ -85,7 +85,7 @@ function handlePending(snapshot)
 function genMatchesHtml(matches)
 {
     $("#matches").empty();
-    for( var m=0; m<matches.length; m++ )
+    for( var m=matches.length-1; m>=0; m-- )
     {
         $("#matches").append(genMatchHtml(matches[m]));
     }
@@ -94,7 +94,7 @@ function genMatchesHtml(matches)
 function genPendingMatchesHtml(keys, matches)
 {
     $("#pending").empty();
-    for( var m=0; m<matches.length; m++ )
+    for( var m=matches.length-1; m>=0; m-- )
     {
         var pendingMatch = $("#pending").append(genPendingHtml(matches[m])).children(":last-child");
         pendingMatch.data({"key": keys[m], "match": matches[m]});
