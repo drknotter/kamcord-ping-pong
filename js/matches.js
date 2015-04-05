@@ -206,6 +206,7 @@ function submitNewMatch()
     match['player1'] = $("#player1_input").val();
     match['player2'] = $("#player2_input").val();
     match['sets'] = [];
+    match['timestamp'] = parseInt(now.getTime() / 1000);
     var sets = $("#sets_input li");
     for( var s=0; s<sets.length; s++ )
     {
