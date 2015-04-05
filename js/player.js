@@ -2,6 +2,13 @@ $(document).ready(function()
 {
     initChart();
     var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
+
+    var name = getQueryParams(document.location.search).n;
+    $("title").html(name);
+    $("#player_name").html(name);
+    $("#player_rank").html("N/A");
+    $("#player_record").html("N/A");
+
     pingpongRef.on("value", handlePlayer);
 });
 
@@ -23,10 +30,6 @@ function handlePlayer(snapshot)
 
     if( player == null )
     {
-        $("title").html(name);
-        $("#player_name").html(name);
-        $("#player_rank").html("N/A");
-        $("#player_record").html("N/A");
         return;
     }
 
@@ -35,19 +38,17 @@ function handlePlayer(snapshot)
     $("#player_rank").html(parseInt(player["rank"]));
     $("#player_record").html(player["wins"] + "-" + player["losses"]);
 
+    genPlayerHistoryHtml(player["history"]);
+
     var data = genPlayerData(player["history"]);
     genPlayerChart(data);
-    //var ctx = document.getElementById("player_chart").getContext("2d");
-    //var player_chart = new Chart(ctx).Line(data);
-
-    genPlayerHistoryHtml(player["history"]);
 }
 
 function genPlayerChart(data)
 {
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {top: 20, right: 20, bottom: 80, left: 50},
         width = 700 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+        height = 400 - margin.top - margin.bottom;
     
     var x = d3.time.scale()
         .range([0, width]);
@@ -57,7 +58,7 @@ function genPlayerChart(data)
     
     var xAxis = d3.svg.axis()
         .scale(x)
-        .ticks(d3.time.week,2)
+        .tickSize(10,40,0)
         .orient("bottom");
     
     var yAxis = d3.svg.axis()
@@ -65,7 +66,7 @@ function genPlayerChart(data)
         .orient("left");
     
     var line = d3.svg.line()
-        .x(function(d) { return x(new Date(d['x']*1000)); })
+        .x(function(d) { return x(new Date(d['x'])); })
         .y(function(d) { return y(d['y']); });
     
     var svg = d3.select("svg")
@@ -74,13 +75,20 @@ function genPlayerChart(data)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(d3.extent(data, function(d) { return new Date(d['x']*1000); }));
+    x.domain(d3.extent(data, function(d) { return new Date(d['x']); }));
     y.domain(d3.extent(data, function(d) { return d['y']; }));
 
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-45)" 
+                });;
 
     svg.append("g")
         .attr("class", "y axis")
@@ -95,6 +103,26 @@ function genPlayerChart(data)
         .datum(data)
         .attr("class", "line")
         .attr("d", line);
+
+    svg.selectAll("circle")
+        .data(data)
+        .enter().append("svg:circle")
+        .attr("class", "point")
+        .attr("cx", function(d, i) { return x(new Date(d['x'])); })
+        .attr("cy", function(d, i) { return y(d['y']); })
+        .attr("r", function(d, i) { return 5; });
+
+    $('svg circle').tipsy({ 
+        gravity: 'sw', 
+        html: true, 
+        title: function() {
+            var datum = this.__data__;
+            var date = new Date(datum['x'])
+            return date.toLocaleString() 
+                    + '</br>Versus: ' + datum['o']
+                    + '</br>Rank: ' + parseInt(datum['y']);
+        }
+    });
 }
 
 function genPlayerHistoryHtml(history)
@@ -145,7 +173,7 @@ function genPlayerData(history)
     for( var m=0; m<history.length; m++ ) 
     {
         var match = history[m];
-        data.push({'x':match['timestamp'], 'y':match['current_rank']});
+        data.push({'x':match['timestamp'], 'y':match['current_rank'], 'o':match['versus']});
     }
 
     return data;

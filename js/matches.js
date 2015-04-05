@@ -206,7 +206,6 @@ function submitNewMatch()
     match['player1'] = $("#player1_input").val();
     match['player2'] = $("#player2_input").val();
     match['sets'] = [];
-    match['timestamp'] = parseInt(now.getTime() / 1000);
     var sets = $("#sets_input li");
     for( var s=0; s<sets.length; s++ )
     {
@@ -214,7 +213,8 @@ function submitNewMatch()
         var player2Score = $(sets[s]).children(".player2");
         match['sets'].push("{0}-{1}".format(player1Score.val(), player2Score.val()));
     }
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending/").push(match);
+    var matchRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending/").push(match);
+    matchRef.update({'timestamp': Firebase.ServerValue.TIMESTAMP})
     $("#new_match_background").fadeOut(200);
 }
 
