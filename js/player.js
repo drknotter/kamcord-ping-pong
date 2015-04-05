@@ -6,8 +6,8 @@ $(document).ready(function()
     var name = getQueryParams(document.location.search).n;
     $("title").html(name);
     $("#player_name").html(name);
-    $("#player_rank").html("N/A");
-    $("#player_record").html("N/A");
+    $("#player_rank").html("&#183;&#183;&#183;");
+    $("#player_record").html("&#183;&#183;&#183;");
 
     pingpongRef.on("value", handlePlayer);
 });
