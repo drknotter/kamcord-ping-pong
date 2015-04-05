@@ -35,17 +35,17 @@ function handlePlayer(snapshot)
     $("#player_rank").html(parseInt(player["rank"]));
     $("#player_record").html(player["wins"] + "-" + player["losses"]);
 
-    genPlayerHistoryHtml(player["history"]);
-
     var data = genPlayerData(player["history"]);
     var ctx = document.getElementById("player_chart").getContext("2d");
     var player_chart = new Chart(ctx).Line(data);
+
+    genPlayerHistoryHtml(player["history"]);
 }
 
 function genPlayerHistoryHtml(history)
 {
     $("#match_list").empty();
-    for( var m=0; m<history.length; m++ )
+    for( var m=history.length-1; m>=0; m-- )
     {
         $("#match_list").append(genPlayerMatchHtml(history[m]));
     }

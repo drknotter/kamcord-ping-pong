@@ -47,12 +47,12 @@ Elo.setPingPong = function(data)
         {
             matches.push(data["matches"][key])
         }
-        matches.sort(function(a,b){return a["timestamp"] > b["timestamp"];});
     }
     else
     {
         matches = data["matches"];
     }
+    matches.sort(function(a,b){return a["timestamp"] - b["timestamp"];});
 
     var stats = {};
 
