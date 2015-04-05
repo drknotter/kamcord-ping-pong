@@ -36,10 +36,65 @@ function handlePlayer(snapshot)
     $("#player_record").html(player["wins"] + "-" + player["losses"]);
 
     var data = genPlayerData(player["history"]);
-    var ctx = document.getElementById("player_chart").getContext("2d");
-    var player_chart = new Chart(ctx).Line(data);
+    genPlayerChart(data);
+    //var ctx = document.getElementById("player_chart").getContext("2d");
+    //var player_chart = new Chart(ctx).Line(data);
 
     genPlayerHistoryHtml(player["history"]);
+}
+
+function genPlayerChart(data)
+{
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 700 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom;
+    
+    var x = d3.time.scale()
+        .range([0, width]);
+    
+    var y = d3.scale.linear()
+        .range([height, 0]);
+    
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .ticks(d3.time.week,2)
+        .orient("bottom");
+    
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
+    
+    var line = d3.svg.line()
+        .x(function(d) { return x(new Date(d['x']*1000)); })
+        .y(function(d) { return y(d['y']); });
+    
+    var svg = d3.select("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    x.domain(d3.extent(data, function(d) { return new Date(d['x']*1000); }));
+    y.domain(d3.extent(data, function(d) { return d['y']; }));
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end");
+
+    svg.append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", line);
 }
 
 function genPlayerHistoryHtml(history)
@@ -86,27 +141,11 @@ function initChart()
 
 function genPlayerData(history)
 {
-    var maxes = {};
+    var data = [];
     for( var m=0; m<history.length; m++ ) 
     {
         var match = history[m];
-        if( !(match['date'] in maxes) )
-        {
-            maxes[match['date']] = match['current_rank'];
-        }
-        else if( maxes[match['date']] < match['current_rank'] )
-        {
-            maxes[match['date']] = match['current_rank'];
-        }
-    }
-
-    var data = {};
-    data['labels'] = [];
-    data['datasets'] = [{'data':[],'fillColor':"rgba(0,0,0,0)",'strokeColor':"black",'pointColor':"black"}];
-    for( var date in maxes )
-    {
-        data['labels'].push(date);
-        data['datasets'][0]['data'].push(Math.round(maxes[date]));
+        data.push({'x':match['timestamp'], 'y':match['current_rank']});
     }
 
     return data;

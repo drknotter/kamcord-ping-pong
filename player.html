@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="css/player.css">
         <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
         <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
-        <script type='text/javascript' src='js/Chart.min.js'></script>
+        <script type='text/javascript' src='js/d3.min.js'></script>
         <script type='text/javascript' src='js/elo.js'></script>
         <script type='text/javascript' src='js/player.js'></script>
         <title></title>
@@ -30,7 +30,7 @@
             <span id="player_rank"></span>
             <span id="player_record"></span>
         </div>
-        <canvas id="player_chart" ></canvas>
+        <svg id="player_chart" width="700px" height="350px"></svg>
         <div id="matches_header">
             <span id="date_header">Date</span>
             <span id="opponent_header">Opponent</span>
