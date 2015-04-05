@@ -127,7 +127,7 @@ function genMatchInfoHtml(match)
 {
     var htmlString = "";
     var winner = match["winner"];
-    htmlString += "<span class='date'>" + match['date'] + "</span>";
+    htmlString += "<span class='date'>" + new Date(match['timestamp']).toLocaleDateString() + "</span>";
     htmlString += "<a href='player.html?n=" + match['player1'] + "' class='" + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
     htmlString += "<span class='player1'>" + match['player1'] + "</span>";
     htmlString += "</a>";
@@ -201,8 +201,6 @@ function genNewSetHtml()
 function submitNewMatch()
 {
     var match = {};
-    var now = new Date();
-    match['date'] = "{0}-{1}-{2}".format(now.getFullYear(), now.getMonth()+1, now.getDate());
     match['player1'] = $("#player1_input").val();
     match['player2'] = $("#player2_input").val();
     match['sets'] = [];

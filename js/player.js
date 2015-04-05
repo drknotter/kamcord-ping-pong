@@ -138,7 +138,7 @@ function genPlayerMatchHtml(playerMatch)
 {
     html = "<li>";
     html += "<a href='player.html?n=" + playerMatch['versus'] + "'>";
-    html += "<span class='date'>" + playerMatch['date'] + "</span>";
+    html += "<span class='date'>" + new Date(playerMatch['timestamp']).toLocaleDateString() + "</span>";
     html += "<span class='challenged'>" + (playerMatch['challenger'] ? "Challenged" : "Challenged by") + "</span>";
     html += "<span class='other_player'>" + playerMatch['versus'] + "</span>";
     html += "<span class='score'>" + playerMatch['score'] + "</span>";
