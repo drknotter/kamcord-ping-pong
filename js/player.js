@@ -67,7 +67,8 @@ function genPlayerChart(data)
     
     var line = d3.svg.line()
         .x(function(d) { return x(new Date(d['x'])); })
-        .y(function(d) { return y(d['y']); });
+        .y(function(d) { return y(d['y']); })
+        .interpolate("bundle");
     
     var svg = d3.select("svg")
         .attr("width", width + margin.left + margin.right)
