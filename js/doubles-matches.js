@@ -103,7 +103,6 @@ function genPendingMatchesHtml(keys, matches)
             acceptPendingMatch($(this).data()['key'], $(this).data()['match']);
         });
     }
-
 }
 
 function genMatchHtml(match)
@@ -208,25 +207,30 @@ function initNewMatchDialog()
 function genNewSetHtml()
 {
     var htmlString = "<li>";
-    htmlString += "<input class='score player1' /> - <input class='score player2' />"
+    htmlString += "<input class='score team1' /> - <input class='score team2' />"
     htmlString += "</li>";
     return htmlString;
 }
 
 function submitNewMatch()
 {
+    var player1 = $("#player1_input").val();
+    var player2 = $("#player2_input").val();
+    var player3 = $("#player3_input").val();
+    var player4 = $("#player4_input").val();
+
     var match = {};
-    match['player1'] = $("#player1_input").val();
-    match['player2'] = $("#player2_input").val();
+    match['team1'] = player1 + '&' + player2;
+    match['team2'] = player3 + '&' + player4;
     match['sets'] = [];
     var sets = $("#sets_input li");
     for( var s=0; s<sets.length; s++ )
     {
-        var player1Score = $(sets[s]).children(".player1");
-        var player2Score = $(sets[s]).children(".player2");
-        match['sets'].push("{0}-{1}".format(player1Score.val(), player2Score.val()));
+        var team1Score = $(sets[s]).children(".team1");
+        var team2Score = $(sets[s]).children(".team2");
+        match['sets'].push("{0}-{1}".format(team1Score.val(), team2Score.val()));
     }
-    var matchRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending/").push(match);
+    var matchRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-pending/").push(match);
     matchRef.update({'timestamp': Firebase.ServerValue.TIMESTAMP})
     $("#new_match_background").fadeOut(200);
 }
@@ -254,7 +258,7 @@ function acceptPendingMatch(key, match)
                 {
                     console.log("Login succeeded with authData: ", authData);
                     var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong");
-                    pingpongRef.child("matches").push(match, function(error)
+                    pingpongRef.child("doubles-matches").push(match, function(error)
                     {
                         if( error )
                         {
@@ -262,7 +266,7 @@ function acceptPendingMatch(key, match)
                         }
                         else
                         {
-                            pingpongRef.child("pending").child(key).remove();
+                            pingpongRef.child("doubles-pending").child(key).remove();
                         }
                     });
                 }
@@ -272,7 +276,7 @@ function acceptPendingMatch(key, match)
 
     $("#reject").on("click", function()
     {
-        new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/pending").child(key).remove();
+        new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-pending").child(key).remove();
         $("#auth_background").fadeOut(200);
     });
 }
