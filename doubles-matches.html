@@ -2,17 +2,17 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/matches.css">
+        <link rel="stylesheet" type="text/css" href="css/doubles-matches.css">
         <script type='text/javascript' src='https://cdn.firebase.com/js/client/2.0.6/firebase.js'></script>
         <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
         <script type='text/javascript' src='js/elo.js'></script>
-        <script type='text/javascript' src='js/matches.js'></script>
-        <title>Singles Matches</title>
+        <script type='text/javascript' src='js/doubles-matches.js'></script>
+        <title>Doubles Matches</title>
     </head>
     <body>
         <div id="title">
             <img src="img/kamcord.jpg" />
-            <span id="kamcord">Kamcord Ping-Pong<br />Singles Matches</span>
+            <span id="kamcord">Kamcord Ping-Pong<br />Doubles Matches</span>
             <img src="img/kamcord.jpg" />
         </div>
         <ul id="header">
@@ -24,7 +24,7 @@
             <li><span id="new">New Match</span></li>
         </ul>
         <div id="matches_header">
-            <span id="date_header">Date</span><span id="player1_header">Player 1</span><span id="vs_header"></span><span id="player2_header">Player 2</span><span id="sets_header">Sets</span>
+            <span id="date_header">Date</span><span id="player1_header">Team 1</span><span id="vs_header"></span><span id="player2_header">Team 2</span><span id="sets_header">Sets</span>
         </div>
         <ul id="pending" class="match_list"></ul>
         <ul id="matches" class="match_list"></ul>
@@ -35,8 +35,8 @@
                 <span id="close_new_match" class="close_button">x</span>
                 <div>
                     <span>
-                        <span class="player_input">Player 1: <input id="player1_input" type="text" /></span>
-                        <span class="player_input">Player 2: <input id="player2_input" type="text" /></span>
+                        <span class="player_input">Team 1: <input id="player1_input" type="text" /><input id="player2_input" type="text" /></span>
+                        <span class="player_input">Team 2: <input id="player3_input" type="text" /><input id="player4_input" type="text" /></span>
                     </span>
                     Sets:
                     <ol id="sets_input"></ol>

@@ -34,6 +34,7 @@ function genRankHtml(player)
     htmlString += "<a class='player' href='player.html?n=" + player['name'] + "'>";
     htmlString += "<span class='player_name'>" + player['name'] + "</span>";
     htmlString += "<span class='player_rank'>" + parseInt(player['rank']) + "</span>";
+    htmlString += "<span class='player_rank'>" + parseInt(player['doubles-rank']) + "</span>";
     if( player['inactive'] )
     {
         htmlString += "<div class='player_inactive'>INACTIVE</div>";

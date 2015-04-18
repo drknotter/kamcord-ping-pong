@@ -1,0 +1,308 @@
+.match_list {
+    margin: 0px;
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    list-style-type: none;
+}
+
+.match_list > li {
+    position: relative;
+}
+
+#matches_header {
+    margin-top: 10px;
+}
+
+#matches_header > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+}
+
+#date_header {
+    width: 15%;
+}
+
+#player1_header {
+    width: 27%;
+}
+
+#vs_header {
+    width: 6%;
+}
+
+#player2_header {
+    width: 27%;
+}
+
+#sets_header {
+    width: 25%;
+}
+
+.match_list > li span {
+    display: inline-block;
+    text-align: center;
+}
+
+.team1 a {
+    text-decoration: none;
+    color: black;
+}
+
+.team2 a {
+    text-decoration: none;
+    color: black;
+}
+
+.match_list > li:nth-child(2n) {
+    background-color: rgb(230,230,230);
+}
+
+.match_list > li:hover {
+    background-color: #9cdbb7;
+}
+
+.date {
+    width: 15%;
+}
+
+.team1 {
+    width: 27%;
+}
+
+.vs {
+    width: 6%;
+}
+
+.team2 {
+    width: 27%;
+}
+
+.match_list .sets {
+    width: 25%;
+    text-align: left;
+}
+
+.set {
+    font-size: 70%;
+    padding-right: 7%;
+    width: 24%;
+}
+
+.set:first-child {
+    padding-left: 7%;
+}
+
+.winner {
+    background-color: rgba(100,255,100,0.5);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.loser {
+    background-color: rgba(255,100,100,0.5);
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.pending {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(128,128,128);
+    background-color: rgba(255,255,255,0.75);
+    cursor: pointer;
+}
+
+#footer {
+    display: inline-block;
+    margin: 0px;
+    margin-top: 10px;
+    padding: 0px;
+    width: 700px;
+    font-size: 0px;
+}
+
+#footer > li {
+    display: inline-block;
+    width: 700px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    background-color: #3eb872;
+    cursor: pointer;
+}
+
+#footer > li:first-child {
+    margin-left: 0px;
+}
+
+#footer > li:hover {
+    background-color: #2b8050;
+}
+
+#footer > li > span {
+    display: inline-block;
+    width: 690px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 30px;
+    color: #113420;
+}
+
+.popup_background {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: rgba(0,0,0,0.45);
+}
+
+.popup {
+    position: absolute;
+    width: 600px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(255,255,255);
+    color: black;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.close_button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0px;
+    right: 0px;
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.popup .player_input {
+    width: 48%;
+    display: inline-block;
+}
+
+input {
+    font-size: 20px;
+    font-family: Kamcord;
+}
+
+.player_input input {
+    width: 90%;
+    margin: 10px 5%;
+}
+
+#sets_input {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+#sets_input input {
+    width: 45%;
+}
+
+#sets_input li {
+    margin-bottom: 5px;
+}
+
+#new_match_buttons {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 600px;
+    font-size: 0px;
+}
+
+#new_match_buttons > li {
+    display: inline-block;
+    width: 138px;
+    margin-left: 15px;
+    text-align: center;
+    background-color: rgb(230,230,230);
+}
+
+#new_match_buttons > li:first-child {
+    margin-left: 0px;
+}
+
+#new_match_buttons > li:hover {
+    background-color: #9cdbb7;
+}
+
+#new_match_buttons > li > span {
+    display: inline-block;
+    width: 128px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #113420;
+    cursor: pointer;
+}
+
+#pending_match_info {
+    position: relative;
+    font-size: 80%;
+    margin: 15px 0px;
+}
+
+#auth_buttons {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 600px;
+    font-size: 0px;
+}
+
+#auth_buttons > li {
+    display: inline-block;
+    width: 292px;
+    margin-left: 15px;
+    text-align: center;
+    background-color: rgb(230,230,230);
+}
+
+#auth_buttons > li:first-child {
+    margin-left: 0px;
+}
+
+#auth_buttons > li:hover {
+    background-color: #9cdbb7;
+}
+
+#auth_buttons > li > span {
+    display: inline-block;
+    width: 282px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #113420;
+    cursor: pointer;
+}
+
+.popup .auth_input
+{
+    display: inline-block;
+    width: 49%;
+    margin-bottom: 15px;
+}
+
+.popup #username_input, .popup #password_input {
+    width: 95%;
+    display: inline-block;
+}

@@ -19,14 +19,14 @@
 #name_header {
     display: inline-block;
     text-align: center;
-    width: 50%;
+    width: 34%;
     font-size: 25px;
 }
 
 #rank_header {
     display: inline-block;
     text-align: center;
-    width: 50%;
+    width: 33%;
     font-size: 25px;
 }
 
@@ -37,7 +37,7 @@
 .player_name {
     display: inline-block;
     text-align: center;
-    width: 50%;
+    width: 34%;
     text-decoration: none;
     color: black;
 }
@@ -45,7 +45,7 @@
 .player_rank {
     display: inline-block;
     text-align: center;
-    width: 50%;
+    width: 33%;
     color: black;
 }
 

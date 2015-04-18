@@ -44,7 +44,7 @@ body {
 
 #header > li {
     display: inline-block;
-    width: 345px;
+    width: 226px;
     margin-left: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -52,6 +52,7 @@ body {
 }
 
 #header > li:first-child {
+    width: 227px;
     margin-left: 0px;
 }
 
@@ -61,7 +62,7 @@ body {
 
 #header > li > a {
     display: inline-block;
-    width: 330px;
+    width: 100%;
     padding: 5px;
     text-decoration: none;
     font-size: 30px;
