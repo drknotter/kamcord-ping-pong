@@ -74,11 +74,12 @@ function genPlayerChart(data, doubles_data)
     var line = d3.svg.line()
         .x(function(d) { return x(new Date(d['x'])); })
         .y(function(d) { return y(d['y']); })
-        .interpolate("bundle");
+        .interpolate('basis');
     
     var doubles_line = d3.svg.line()
         .x(function(d) { return x(new Date(d['x'])); })
-        .y(function(d) { return y(d['y']); });
+        .y(function(d) { return y(d['y']); })
+        .interpolate('basis');
 
     var svg = d3.select("svg")
         .attr("width", width + margin.left + margin.right)
