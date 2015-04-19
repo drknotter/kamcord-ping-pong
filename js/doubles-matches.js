@@ -230,6 +230,7 @@ function submitNewMatch()
         var team2Score = $(sets[s]).children(".team2");
         match['sets'].push("{0}-{1}".format(team1Score.val(), team2Score.val()));
     }
+    console.log(match);
     var matchRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-pending/").push(match);
     matchRef.update({'timestamp': Firebase.ServerValue.TIMESTAMP})
     $("#new_match_background").fadeOut(200);

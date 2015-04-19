@@ -8,14 +8,17 @@
     font-size: 25px;
 }
 
-#name_header {
-    width: 33%;
+.name_header {
+    width: 28%;
 }
-#rank_header {
-    width: 33%;
+.ladder_header {
+    width: 36%;
 }
-#record_header {
-    width: 34%;
+.rank_header {
+    width: 18%;
+}
+.record_header {
+    width: 18%;
 }
 
 #player {
@@ -25,17 +28,28 @@
 #player > span {
     display: inline-block;
     text-align: center;
-    font-size: 55px;
+    margin-bottom: 10px;
 }
 
 #player_name {
-    width: 33%;
+    width: 28%;
+    font-size: 55px;
 }
 #player_rank {
-    width: 33%;
+    width: 18%;
+    font-size: 40px;
 }
 #player_record {
-    width: 33%;
+    width: 18%;
+    font-size: 40px;
+}
+#player_doubles_rank {
+    width: 18%;
+    font-size: 40px;
+}
+#player_doubles_record {
+    width: 18%;
+    font-size: 40px;
 }
 
 #matches_header {
@@ -48,13 +62,13 @@
     font-size: 25px;
 }
 
-#date_header {
+#matches_header > .date_header {
     width: 30%;
 }
-#opponent_header {
+#matches_header > .opponent_header {
     width: 40%;
 }
-#score_header {
+#matches_header > .score_header {
     width: 30%;
 }
 
@@ -89,17 +103,91 @@
     background-color: #9cdbb7;
 }
 
-.date {
+#doubles_matches_header {
+    font-size: 0px;
+    margin-top: 50px;
+}
+#doubles_matches_header > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+}
+
+#doubles_match_list {
+    margin: 10px 0px;
+    width: 100%;
+    padding-left: 0px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    list-style-type: none;
+}
+
+#doubles_match_list > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#doubles_match_list > li a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#doubles_match_list > li span {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+#doubles_match_list > li:nth-child(2n) {
+    background-color: rgb(230,230,230);
+}
+#doubles_match_list > li:hover {
+    background-color: #9cdbb7;
+}
+
+#match_list .date {
     width: 30%;
 }
-.challenged {
+#match_list .challenged {
     width: 20%;
 }
-.other_player {
+#match_list .other_player {
     width: 20%;
 }
-.score {
+#match_list .score {
     width: 30%;
+}
+
+#doubles_matches_header > .date_header {
+    width: 20%;
+}
+#doubles_matches_header > .with_header {
+    width: 10%;
+}
+#doubles_matches_header > .opponent_header {
+    width: 50%;
+}
+#doubles_matches_header > .score_header {
+    width: 20%;
+}
+
+#doubles_match_list .date {
+    width: 20%;
+}
+#doubles_match_list .with {
+    width: 10%;
+}
+#doubles_match_list .challenged {
+    width: 25%;
+}
+#doubles_match_list .versus {
+    width: 25%;
+}
+#doubles_match_list .score {
+    width: 20%;
+}
+#doubles_match_list a {
+    text-decoration: none;
+    color: black;
 }
 
 #player_chart {
@@ -119,9 +207,20 @@
     stroke-width: 3px;
 }
 
-.point {
+.doubles_line {
+    fill: none;
+    stroke: #125640;
+    stroke-width: 3px;
+}
+
+.point.singles {
     fill: white;
     stroke: #2b8050;
+    stroke-width: 3px;
+}
+.point.doubles {
+    fill: white;
+    stroke: #084630;
     stroke-width: 3px;
 }
 
