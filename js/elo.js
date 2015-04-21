@@ -98,7 +98,7 @@ Elo.readSinglesMatches = function(data)
             matches.push(data["matches"][key])
         }
     }
-    else
+    else if( data["matches"] )
     {
         matches = data["matches"];
     }
@@ -116,7 +116,7 @@ Elo.readDoublesMatches = function(data)
             matches.push(data["doubles-matches"][key])
         }
     }
-    else
+    else if( data["doubles-matches"] )
     {
         matches = data["doubles-matches"];
     }
