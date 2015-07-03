@@ -10,6 +10,7 @@ $(document).ready(function()
     $("#player_record").html("&#183;&#183;&#183;");
     $("#player_doubles_rank").html("&#183;&#183;&#183;");
     $("#player_doubles_record").html("&#183;&#183;&#183;");
+    $("#player_chart").hide();
 
     pingpongRef.on("value", handlePlayer);
 });
@@ -47,7 +48,11 @@ function handlePlayer(snapshot)
 
     var data = genPlayerData(player["history"]);
     var doubles_data = genPlayerDoublesData(player["doubles-history"]);
-    genPlayerChart(data, doubles_data);
+    if( data.length > 1 || doubles_data.length > 1 )
+    {
+        $("#player_chart").show();
+        genPlayerChart(data, doubles_data);
+    }
 }
 
 function genPlayerChart(data, doubles_data)
@@ -87,14 +92,12 @@ function genPlayerChart(data, doubles_data)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var singles_extent_x = d3.extent(data, function(d) { return d['x']; });
-    var singles_extent_y = d3.extent(data, function(d) { return d['y']; });
-    var doubles_extent_x = d3.extent(doubles_data, function(d) { return d['x']; });
-    var doubles_extent_y = d3.extent(doubles_data, function(d) { return d['y']; });
-    x.domain([new Date(Math.min(singles_extent_x[0], doubles_extent_x[0])),
-        new Date(Math.max(singles_extent_x[1], doubles_extent_x[1]))]);
-    y.domain([Math.min(singles_extent_y[0], doubles_extent_y[0]),
-        Math.max(singles_extent_y[1], doubles_extent_y[1])]);
+    var all_data = data.concat(doubles_data);
+    var extent_x = d3.extent(all_data, function(d) { return d['x']; });
+    var extent_y = d3.extent(all_data, function(d) { return d['y']; });
+
+    x.domain([new Date(extent_x[0]),new Date(extent_x[1])]);
+    y.domain(extent_y);
 
     svg.append("g")
         .attr("class", "x axis")
