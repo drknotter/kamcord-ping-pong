@@ -239,6 +239,30 @@ function acceptPendingMatch(key, match)
                 {
                     console.log("Login succeeded with authData: ", authData);
                     var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong");
+                    pingpongRef.once('value', function(snapshot) {
+                        var players = Elo.readPlayers(snapshot.val());
+                        var playerNames = [];
+                        for( var i=0; i<players.length; i++ )
+                        {
+                            playerNames.push(players[i]['name']);
+                        }
+                        var matchPlayerNames = [match['player1'], match['player2']];
+                        for( var i=0; i<matchPlayerNames.length; i++ )
+                        {
+                            if( playerNames.indexOf(matchPlayerNames[i]) == -1 )
+                            {
+                                pingpongRef.child("players").push(
+                                    {'name':matchPlayerNames[i], 'rank':1500, 'doubles-rank':1500},
+                                    function(error)
+                                    {
+                                        if( error )
+                                        {
+                                            console.log("push new player failed with error: ", error);
+                                        }
+                                    });
+                            }
+                        }
+                    });
                     pingpongRef.child("matches").push(match, function(error)
                     {
                         if( error )
