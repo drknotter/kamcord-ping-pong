@@ -81,7 +81,7 @@ Elo.readPlayers = function(data)
             players.push(data["players"][key])
         }
     }
-    else
+    else if( data["players"] )
     {
         players = data["players"];
     }
