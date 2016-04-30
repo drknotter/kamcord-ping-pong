@@ -1,9 +1,10 @@
 var show_inactive = false;
+var sort_by_doubles = true;
 
 $(document).ready(function()
 {
     var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
-    pingPongRef.on("value",handleRankings);
+    pingPongRef.on("value", handleRankings);
 
     initClickHandlers();
     setShowHideInactive();
@@ -13,7 +14,16 @@ function handleRankings(snapshot)
 {
     var data = snapshot.val();
     Elo.setPingPong(data);
+    sortPingPong();
     genRankingsHtml(PingPong);
+}
+
+function sortPingPong() {
+    if (sort_by_doubles) {
+        PingPong.sort(function(a,b){return b['doubles-rank']-a['doubles-rank']});
+    } else {
+        PingPong.sort(function(a,b){return b['rank']-a['rank']});
+    }
 }
 
 function genRankingsHtml(players)
@@ -26,6 +36,9 @@ function genRankingsHtml(players)
             $("#rankings").append(genRankHtml(players[p]));
         }
     }
+
+    $("#doubles_rank_header").css("text-decoration", sort_by_doubles ? "underline" : "none");
+    $("#singles_rank_header").css("text-decoration", sort_by_doubles ? "none" : "underline");
 }
 
 function genRankHtml(player)
@@ -51,6 +64,24 @@ function initClickHandlers()
         show_inactive = !show_inactive;
         genRankingsHtml(PingPong);
         setShowHideInactive();
+    });
+
+    $("#singles_rank_header").on("click", function()
+    {
+        if (sort_by_doubles) {
+            sort_by_doubles = false;
+            sortPingPong();
+            genRankingsHtml(PingPong);
+        }
+    });
+
+    $("#doubles_rank_header").on("click", function()
+    {
+        if (!sort_by_doubles) {
+            sort_by_doubles = true;
+            sortPingPong();
+            genRankingsHtml(PingPong);
+        }
     });
 }
 

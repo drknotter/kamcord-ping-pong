@@ -23,11 +23,12 @@
     font-size: 25px;
 }
 
-#rank_header {
+.rank_header {
     display: inline-block;
     text-align: center;
     width: 33%;
     font-size: 25px;
+    cursor: pointer;
 }
 
 #rankings {
