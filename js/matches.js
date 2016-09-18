@@ -151,24 +151,9 @@ function initClickHandlers()
         initNewMatchDialog();
         $(document).scrollTop(0);
         $("#new_match_background").fadeIn(200);
+        $("#player1_input").focus();
     });
 
-    $("#add_set").on("click", function()
-    {
-        if( n_sets < max_sets )
-        {
-            $("#sets_input").append(genNewSetHtml());
-            n_sets += 1;
-        }
-    });
-    $("#remove_set").on("click", function()
-    {
-        if( n_sets > 1 )
-        {
-            $("#sets_input li:last-child").remove();
-            n_sets -= 1;
-        }
-    });
     $("#close_new_match,#cancel").on("click", function()
     {
         $("#new_match_background").fadeOut(200);
@@ -187,6 +172,11 @@ function initNewMatchDialog()
 {
     $("#sets_input").empty();
     $("#sets_input").append(genNewSetHtml());
+    $(".score").last().keypress(function(e) {
+        if (e.which == 13) {
+            submitNewMatch();
+        }
+    });
     n_sets = 1;
 }
 

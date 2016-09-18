@@ -24,11 +24,11 @@
 }
 
 #date_header {
-    width: 15%;
+    width: 20%;
 }
 
 #player1_header {
-    width: 27%;
+    width: 30%;
 }
 
 #vs_header {
@@ -36,11 +36,11 @@
 }
 
 #player2_header {
-    width: 27%;
+    width: 30%;
 }
 
 #sets_header {
-    width: 25%;
+    width: 14%;
 }
 
 .match_list > li span {
@@ -67,11 +67,11 @@
 }
 
 .date {
-    width: 15%;
+    width: 20%;
 }
 
 .team1 {
-    width: 27%;
+    width: 30%;
 }
 
 .vs {
@@ -79,22 +79,18 @@
 }
 
 .team2 {
-    width: 27%;
+    width: 30%;
 }
 
 .match_list .sets {
-    width: 25%;
+    width: 14%;
     text-align: left;
 }
 
 .set {
-    font-size: 70%;
-    padding-right: 7%;
-    width: 24%;
-}
-
-.set:first-child {
     padding-left: 7%;
+    padding-right: 7%;
+    width: 86%;
 }
 
 .winner {
@@ -231,7 +227,7 @@ input {
 
 #new_match_buttons > li {
     display: inline-block;
-    width: 138px;
+    width: 292px;
     margin-left: 15px;
     text-align: center;
     background-color: rgb(230,230,230);
