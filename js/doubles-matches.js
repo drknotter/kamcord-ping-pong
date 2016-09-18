@@ -3,10 +3,25 @@ var max_sets = 3;
 
 $(document).ready(function()
 {
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-matches/").on("value", handleMatches);
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-pending/").on("value", handlePending);
+    var seasonName = getQueryParams(document.location.search).s;
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : "") + "doubles-matches/").on("value", handleMatches);
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : "") + "doubles-pending/").on("value", handlePending);
     initClickHandlers();
 });
+
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+
+    var params = {}, tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])]
+            = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
 
 function handleMatches(snapshot)
 {

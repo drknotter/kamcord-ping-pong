@@ -3,12 +3,27 @@ var sort_by_doubles = true;
 
 $(document).ready(function()
 {
-    var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
+    var seasonName = getQueryParams(document.location.search).s;
+    var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : ""));
     pingPongRef.on("value", handleRankings);
 
     initClickHandlers();
     setShowHideInactive();
 });
+
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+
+    var params = {}, tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])]
+            = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
 
 function handleRankings(snapshot)
 {
