@@ -33,6 +33,12 @@ function handlePlayer(snapshot)
     var name = getQueryParams(document.location.search).n;
     var player = null;
 
+    if (data['seasonName']) {
+        $("#season").text(data['seasonName'])
+    } else {
+        $("#season").remove();
+    }
+
     Elo.setPingPong(data);
     for( var p=0; p<PingPong.length; p++ )
     {

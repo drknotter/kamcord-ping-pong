@@ -4,8 +4,10 @@ var max_sets = 3;
 $(document).ready(function()
 {
     var seasonId = getQueryParams(document.location.search).s;
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : "") + "doubles-matches/").on("value", handleMatches);
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : "") + "doubles-pending/").on("value", handlePending);
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : "")).on("value", handleData);
+
+    $("#season").hide();
+    $("#footer").hide();
     addSeasonQueryParams(seasonId);
     initClickHandlers();
 });
@@ -33,10 +35,22 @@ function addSeasonQueryParams(seasonId) {
     }
 }
 
+function handleData(snapshot) {
+    var data = snapshot.val();
 
-function handleMatches(snapshot)
+    if (data['seasonName']) {
+        $("#season").text(data['seasonName'])
+        $("#season").show();
+    } else {
+        $("#footer").show();
+    }
+
+    handleMatches(data['doubles-matches']);
+    handlePending(data['doubles-pending']);
+}
+
+function handleMatches(snapshotVals)
 {
-    var snapshotVals = snapshot.val();
     if( snapshotVals == null )
     {
         genMatchesHtml([]);
@@ -71,9 +85,8 @@ function handleMatches(snapshot)
     }
 }
 
-function handlePending(snapshot)
+function handlePending(snapshotVals)
 {
-    var snapshotVals = snapshot.val();
     if( snapshotVals == null )
     {
         genPendingMatchesHtml([], []);

@@ -41,6 +41,12 @@ function handleRankings(snapshot)
     Elo.setPingPong(data);
     sortPingPong();
     genRankingsHtml(PingPong);
+
+    if (data['seasonName']) {
+        $("#season").text(data['seasonName'])
+    } else {
+        $("#season").remove();
+    }
 }
 
 function sortPingPong() {

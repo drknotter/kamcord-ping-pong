@@ -34,6 +34,14 @@ body {
     vertical-align: middle;
 }
 
+#season {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+    vertical-align: middle;
+}
+
 #header {
     display: inline-block;
     margin: 0px;
