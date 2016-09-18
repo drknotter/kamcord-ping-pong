@@ -112,3 +112,16 @@
     font-size: 30px;
     color: #113420;
 }
+
+#end_season {
+    display: inline-block;
+    width: 700px;
+    text-align: center;
+    margin-bottom: 10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    background-color: #3eb872;
+    cursor: pointer;
+    font-size: 30px;
+    color: #113420;
+}

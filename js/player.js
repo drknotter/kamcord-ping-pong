@@ -15,6 +15,7 @@ $(document).ready(function()
 
     pingPongRef.on("value", handlePlayer);
 
+    $("#season").hide();
     addSeasonQueryParams(seasonId);
 });
 
@@ -34,9 +35,10 @@ function handlePlayer(snapshot)
     var player = null;
 
     if (data['seasonName']) {
+        $("#season").show();
         $("#season").text(data['seasonName'])
     } else {
-        $("#season").remove();
+        $("#season").hide();
     }
 
     Elo.setPingPong(data);

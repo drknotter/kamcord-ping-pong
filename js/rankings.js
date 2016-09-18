@@ -7,6 +7,8 @@ $(document).ready(function()
     var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : ""));
     pingPongRef.on("value", handleRankings);
 
+    $("#season").hide();
+    $("#end_season").hide();
     addSeasonQueryParams(seasonId);
     initClickHandlers();
     setShowHideInactive();
@@ -43,9 +45,12 @@ function handleRankings(snapshot)
     genRankingsHtml(PingPong);
 
     if (data['seasonName']) {
+        $("#season").show();
         $("#season").text(data['seasonName'])
+        $("$#end_season").hide();
     } else {
-        $("#season").remove();
+        $("#season").hide();
+        $("#end_season").show();
     }
 }
 

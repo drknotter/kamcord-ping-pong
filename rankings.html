@@ -25,8 +25,24 @@
             <span id="name_header">Player</span><span id="singles_rank_header" class="rank_header">Singles Rank</span><span id="doubles_rank_header" class="rank_header">Doubles Rank</span>
         </div>
         <ol id="rankings"></ol>
+        <div id="end_season">End Season</div>
         <ul id="footer">
             <li><span id="hidden"></span></li>
         </ul>
+
+        <div id="auth_background" class="popup_background">
+            <div id="auth" class="popup">
+                <ul id="pending_match_info" class="match_list"></ul>
+                    <span>
+                        <span class="auth_input">Username: <input id="username_input" type="text" /></span>
+                        <span class="auth_input">Password: <input id="password_input" type="password" /></span>
+                    </span>
+                <ul id="auth_buttons">
+                    <li><span class="button" id="accept">Accept</span></li>
+                    <li><span class="button" id="reject">Reject</span></li>
+                </ul>
+                <span id="close_auth" class="close_button">x</span>
+            </div>
+        </div>
     </body>
 </html>
