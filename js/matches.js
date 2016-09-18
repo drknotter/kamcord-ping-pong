@@ -6,6 +6,7 @@ $(document).ready(function()
     var seasonName = getQueryParams(document.location.search).s;
     new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : "") + "matches/").on("value", handleMatches);
     new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : "") + "pending/").on("value", handlePending);
+    addSeasonQueryParams(seasonName);
     initClickHandlers();
 });
 
@@ -22,6 +23,16 @@ function getQueryParams(qs) {
 
     return params;
 }
+
+function addSeasonQueryParams(seasonName) {
+    if (seasonName) {
+        $("a").each(function(index) {
+            href=$(this).attr("href");
+            $(this).attr("href", href + "?s=" + seasonName);
+        })
+    }
+}
+
 
 function handleMatches(snapshot)
 {
@@ -140,14 +151,15 @@ function genPendingHtml(match)
 
 function genMatchInfoHtml(match)
 {
+    var seasonName = getQueryParams(document.location.search).s;
     var htmlString = "";
     var winner = match["winner"];
     htmlString += "<span class='date'>" + new Date(match['timestamp']).toLocaleDateString() + "</span>";
-    htmlString += "<a href='player.html?n=" + match['player1'] + "' class='" + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
+    htmlString += "<a href='player.html?n=" + match['player1'] + (seasonName?"&s="+seasonName:"") + "' class='" + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
     htmlString += "<span class='player1'>" + match['player1'] + "</span>";
     htmlString += "</a>";
     htmlString += "<span class='vs'>vs.</span>";
-    htmlString += "<a href='player.html?n=" + match['player2'] + "' class='" + (winner == 2 ? "winner" : (winner == 1 ) ? "loser" : "") + "'>";
+    htmlString += "<a href='player.html?n=" + match['player2'] + (seasonName?"&s="+seasonName:"") + "' class='" + (winner == 2 ? "winner" : (winner == 1 ) ? "loser" : "") + "'>";
     htmlString += "<span class='player2'>" + match['player2'] + "</span>";
     htmlString += "</a>";
     htmlString += "<span class='sets'>";

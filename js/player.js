@@ -13,8 +13,19 @@ $(document).ready(function()
     $("#player_doubles_record").html("&#183;&#183;&#183;");
     $("#player_chart").hide();
 
-    pingpongRef.on("value", handlePlayer);
+    pingPongRef.on("value", handlePlayer);
+
+    addSeasonQueryParams(seasonName);
 });
+
+function addSeasonQueryParams(seasonName) {
+    if (seasonName) {
+        $("a").each(function(index) {
+            href=$(this).attr("href");
+            $(this).attr("href", href + "?s=" + seasonName);
+        })
+    }
+}
 
 function handlePlayer(snapshot)
 {
@@ -192,8 +203,9 @@ function genPlayerDoublesHistoryHtml(history)
 
 function genPlayerMatchHtml(playerMatch)
 {
+    var seasonName = getQueryParams(document.location.search).s;
     html = "<li>";
-    html += "<a href='player.html?n=" + playerMatch['versus'] + "'>";
+    html += "<a href='player.html?n=" + playerMatch['versus'] + (seasonName?"&s="+seasonName:"") + "'>";
     html += "<span class='date'>" + new Date(playerMatch['timestamp']).toLocaleDateString() + "</span>";
     html += "<span class='challenged'>" + (playerMatch['challenger'] ? "Challenged" : "Challenged by") + "</span>";
     html += "<span class='other_player'>" + playerMatch['versus'] + "</span>";
@@ -205,16 +217,17 @@ function genPlayerMatchHtml(playerMatch)
 
 function genPlayerDoublesMatchHtml(playerMatch)
 {
+    var seasonName = getQueryParams(document.location.search).s;
     html = "<li>";
     html += "<span class='date'>" + new Date(playerMatch['timestamp']).toLocaleDateString() + "</span>";
     html += "<span class='with'>"
-    html += "<a href='player.html?n=" + playerMatch['with'] + "'>" + playerMatch['with'] + "</a>"
+    html += "<a href='player.html?n=" + playerMatch['with'] + (seasonName?"&s="+seasonName:"") + "'>" + playerMatch['with'] + "</a>"
     html += "</span>";
     html += "<span class='challenged'>" + (playerMatch['challenger'] ? "Challenged" : "Challenged by") + "</span>";
     html += "<span class='versus'>"
-    html += "<a href='player.html?n=" + playerMatch['versus1'] + "'>" + playerMatch['versus1'] + "</a>"
+    html += "<a href='player.html?n=" + playerMatch['versus1'] + (seasonName?"&s="+seasonName:"") + "'>" + playerMatch['versus1'] + "</a>"
     html += " &amp; "
-    html += "<a href='player.html?n=" + playerMatch['versus2'] + "'>" + playerMatch['versus2'] + "</a>"
+    html += "<a href='player.html?n=" + playerMatch['versus2'] + (seasonName?"&s="+seasonName:"") + "'>" + playerMatch['versus2'] + "</a>"
     html += "</span>";
     html += "<span class='score " + (playerMatch['winner'] ? "winner" : "loser") + "'>" + (playerMatch['winner'] ? "&#8593;" : "&#8595;") + parseInt(Math.abs(playerMatch['scoreDiff'])) + "</span>";
     html += "</li>";

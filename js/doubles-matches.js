@@ -6,6 +6,7 @@ $(document).ready(function()
     var seasonName = getQueryParams(document.location.search).s;
     new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : "") + "doubles-matches/").on("value", handleMatches);
     new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : "") + "doubles-pending/").on("value", handlePending);
+    addSeasonQueryParams(seasonName);
     initClickHandlers();
 });
 
@@ -22,6 +23,16 @@ function getQueryParams(qs) {
 
     return params;
 }
+
+function addSeasonQueryParams(seasonName) {
+    if (seasonName) {
+        $("a").each(function(index) {
+            href=$(this).attr("href");
+            $(this).attr("href", href + "?s=" + seasonName);
+        })
+    }
+}
+
 
 function handleMatches(snapshot)
 {
@@ -143,24 +154,25 @@ function genMatchInfoHtml(match)
     var team2_players = match['team2'].split('&').sort();
     var winner = match["winner"];
 
+    var seasonName = getQueryParams(document.location.search).s;
     var htmlString = "";
     htmlString += "<span class='date'>" + new Date(match['timestamp']).toLocaleDateString() + "</span>";
     htmlString += "<span class='team1 " + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
-    htmlString += "<a href='player.html?n=" + team1_players[0] + "'>";
+    htmlString += "<a href='player.html?n=" + team1_players[0] + (seasonName?"&s="+seasonName:"") + "'>";
     htmlString += team1_players[0];
     htmlString += "</a>";
     htmlString += " &amp; "
-    htmlString += "<a href='player.html?n=" + team1_players[1] + "'>";
+    htmlString += "<a href='player.html?n=" + team1_players[1] + (seasonName?"&s="+seasonName:"") + "'>";
     htmlString += team1_players[1];
     htmlString += "</a>";
     htmlString += "</span>";
     htmlString += "<span class='vs'>vs.</span>";
     htmlString += "<span class='team2 " + (winner == 2 ? "winner" : (winner == 1 ) ? "loser" : "") + "'>";
-    htmlString += "<a href='player.html?n=" + team2_players[0] + "'>";
+    htmlString += "<a href='player.html?n=" + team2_players[0] + (seasonName?"&s="+seasonName:"") + "'>";
     htmlString += team2_players[0];
     htmlString += "</a>";
     htmlString += " &amp; "
-    htmlString += "<a href='player.html?n=" + team2_players[1] + "'>";
+    htmlString += "<a href='player.html?n=" + team2_players[1] + (seasonName?"&s="+seasonName:"") + "'>";
     htmlString += team2_players[1];
     htmlString += "</a>";
     htmlString += "</span>";
