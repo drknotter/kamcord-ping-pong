@@ -196,7 +196,7 @@ function genPlayerMatchHtml(playerMatch)
     html += "<span class='date'>" + new Date(playerMatch['timestamp']).toLocaleDateString() + "</span>";
     html += "<span class='challenged'>" + (playerMatch['challenger'] ? "Challenged" : "Challenged by") + "</span>";
     html += "<span class='other_player'>" + playerMatch['versus'] + "</span>";
-    html += "<span class='score'>" + playerMatch['score'] + "</span>";
+    html += "<span class='score " + (playerMatch['winner'] ? "winner" : "loser") + "'>" + (playerMatch['winner'] ? "&#8593;" : "&#8595;") + parseInt(Math.abs(playerMatch['scoreDiff'])) + "</span>";
     html += "</a>";
     html += "</li>";
     return html;
@@ -215,7 +215,7 @@ function genPlayerDoublesMatchHtml(playerMatch)
     html += " &amp; "
     html += "<a href='player.html?n=" + playerMatch['versus2'] + "'>" + playerMatch['versus2'] + "</a>"
     html += "</span>";
-    html += "<span class='score'>" + playerMatch['score'] + "</span>";
+    html += "<span class='score " + (playerMatch['winner'] ? "winner" : "loser") + "'>" + (playerMatch['winner'] ? "&#8593;" : "&#8595;") + parseInt(Math.abs(playerMatch['scoreDiff'])) + "</span>";
     html += "</li>";
     return html;
 }

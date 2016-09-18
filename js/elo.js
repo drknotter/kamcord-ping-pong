@@ -157,8 +157,12 @@ Elo.populateSinglesInformation = function(matches, players, stats)
         var s2 = w2 > w1 ? 1.0 : 0.0;
 
         // Adjust the players' ranks.
+        player1Diff = stats[player1]['rank'];
+        player2Diff = stats[player2]['rank'];
         stats[player1]['rank'] = stats[player1]['rank'] + Elo.kFactor(stats[player1]) * (s1 - e1)
         stats[player2]['rank'] = stats[player2]['rank'] + Elo.kFactor(stats[player2]) * (s2 - e2)
+        player1Diff = stats[player1]['rank'] - player1Diff;
+        player2Diff = stats[player2]['rank'] - player2Diff;
 
         // Increment the players' match counts.
         stats[player1]['matches'] += 1
@@ -171,8 +175,8 @@ Elo.populateSinglesInformation = function(matches, players, stats)
         stats[player2]['losses'] += w1 > w2 ? 1 : 0
 
         // Update the players' histories.
-        stats[player1]['history'].push({'versus':player2, 'score': w1+"-"+w2, 'challenger': true, 'timestamp': matches[m]["timestamp"],'current_rank': stats[player1]['rank']})
-        stats[player2]['history'].push({'versus':player1, 'score': w2+"-"+w1, 'challenger': false, 'timestamp': matches[m]["timestamp"], 'current_rank': stats[player2]['rank']})
+        stats[player1]['history'].push({'winner':(w1>w2?true:false),'versus':player2, 'scoreDiff': player1Diff, 'challenger': true, 'timestamp': matches[m]["timestamp"],'current_rank': stats[player1]['rank']})
+        stats[player2]['history'].push({'winner':(w2>w1?true:false),'versus':player1, 'scoreDiff': player2Diff, 'challenger': false, 'timestamp': matches[m]["timestamp"], 'current_rank': stats[player2]['rank']})
     }
 }
 
@@ -217,10 +221,18 @@ Elo.populateDoublesInformation = function(matches, players, stats)
         var s2 = w2 > w1 ? 1.0 : 0.0;
 
         // Adjust the players' ranks.
+        player1Diff = stats[player1]['doubles-rank'];
+        player2Diff = stats[player2]['doubles-rank'];
+        player3Diff = stats[player3]['doubles-rank'];
+        player4Diff = stats[player4]['doubles-rank'];
         stats[player1]['doubles-rank'] = stats[player1]['doubles-rank'] + Elo.kFactorDoubles(stats[player1]) * (s1 - e1)
         stats[player2]['doubles-rank'] = stats[player2]['doubles-rank'] + Elo.kFactorDoubles(stats[player2]) * (s1 - e1)
         stats[player3]['doubles-rank'] = stats[player3]['doubles-rank'] + Elo.kFactorDoubles(stats[player3]) * (s2 - e2)
         stats[player4]['doubles-rank'] = stats[player4]['doubles-rank'] + Elo.kFactorDoubles(stats[player4]) * (s2 - e2)
+        player1Diff = stats[player1]['doubles-rank'] - player1Diff;
+        player2Diff = stats[player2]['doubles-rank'] - player2Diff;
+        player3Diff = stats[player3]['doubles-rank'] - player3Diff;
+        player4Diff = stats[player4]['doubles-rank'] - player4Diff;
 
         // Increment the players' match counts.
         stats[player1]['doubles-matches'] += 1
@@ -239,10 +251,10 @@ Elo.populateDoublesInformation = function(matches, players, stats)
         stats[player4]['doubles-losses'] += w1 > w2 ? 1 : 0
 
         // Update the players' histories.
-        stats[player1]['doubles-history'].push({'with':player2, 'versus1':player3, 'versus2':player4, 'score': w1+"-"+w2, 'challenger': true, 'timestamp': matches[m]["timestamp"],'current_rank': stats[player1]['doubles-rank']})
-        stats[player2]['doubles-history'].push({'with':player1, 'versus1':player3, 'versus2':player4, 'score': w1+"-"+w2, 'challenger': true, 'timestamp': matches[m]["timestamp"],'current_rank': stats[player2]['doubles-rank']})
-        stats[player3]['doubles-history'].push({'with':player4, 'versus1':player1, 'versus2':player2, 'score': w2+"-"+w1, 'challenger': false, 'timestamp': matches[m]["timestamp"], 'current_rank': stats[player3]['doubles-rank']})
-        stats[player4]['doubles-history'].push({'with':player3, 'versus1':player1, 'versus2':player2, 'score': w2+"-"+w1, 'challenger': false, 'timestamp': matches[m]["timestamp"], 'current_rank': stats[player4]['doubles-rank']})
+        stats[player1]['doubles-history'].push({'winner':(w1>w2?true:false),'with':player2, 'versus1':player3, 'versus2':player4, 'scoreDiff': player1Diff, 'challenger': true, 'timestamp': matches[m]["timestamp"],'current_rank': stats[player1]['doubles-rank']})
+        stats[player2]['doubles-history'].push({'winner':(w1>w2?true:false),'with':player1, 'versus1':player3, 'versus2':player4, 'scoreDiff': player2Diff, 'challenger': true, 'timestamp': matches[m]["timestamp"],'current_rank': stats[player2]['doubles-rank']})
+        stats[player3]['doubles-history'].push({'winner':(w2>w1?true:false),'with':player4, 'versus1':player1, 'versus2':player2, 'scoreDiff': player3Diff, 'challenger': false, 'timestamp': matches[m]["timestamp"], 'current_rank': stats[player3]['doubles-rank']})
+        stats[player4]['doubles-history'].push({'winner':(w2>w1?true:false),'with':player3, 'versus1':player1, 'versus2':player2, 'scoreDiff': player4Diff, 'challenger': false, 'timestamp': matches[m]["timestamp"], 'current_rank': stats[player4]['doubles-rank']})
     }
 }
 
