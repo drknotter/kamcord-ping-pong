@@ -3,11 +3,11 @@ var sort_by_doubles = true;
 
 $(document).ready(function()
 {
-    var seasonName = getQueryParams(document.location.search).s;
-    var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonName ? "seasons/" + seasonName + "/" : ""));
+    var seasonId = getQueryParams(document.location.search).s;
+    var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : ""));
     pingPongRef.on("value", handleRankings);
 
-    addSeasonQueryParams(seasonName);
+    addSeasonQueryParams(seasonId);
     initClickHandlers();
     setShowHideInactive();
 });
@@ -26,11 +26,11 @@ function getQueryParams(qs) {
     return params;
 }
 
-function addSeasonQueryParams(seasonName) {
-    if (seasonName) {
+function addSeasonQueryParams(seasonId) {
+    if (seasonId) {
         $("a").each(function(index) {
             href=$(this).attr("href");
-            $(this).attr("href", href + "?s=" + seasonName);
+            $(this).attr("href", href + "?s=" + seasonId);
         })
     }
 }
@@ -68,9 +68,9 @@ function genRankingsHtml(players)
 
 function genRankHtml(player)
 {
-    var seasonName = getQueryParams(document.location.search).s;
+    var seasonId = getQueryParams(document.location.search).s;
     var htmlString = "<li>";
-    htmlString += "<a class='player' href='player.html?n=" + player['name'] + (seasonName?"&s="+seasonName:"") + "'>";
+    htmlString += "<a class='player' href='player.html?n=" + player['name'] + (seasonId?"&s="+seasonId:"") + "'>";
     htmlString += "<span class='player_name'>" + player['name'] + "</span>";
     htmlString += "<span class='player_rank'>" + parseInt(player['rank']) + "</span>";
     htmlString += "<span class='player_rank'>" + parseInt(player['doubles-rank']) + "</span>";
