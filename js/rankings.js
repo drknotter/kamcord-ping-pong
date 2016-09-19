@@ -172,5 +172,5 @@ function submitNewSeason(seasonName)
                 });
             }
         });
-    $("#auth_background").fadeOut(200);
+    $("#end_season_auth_background").fadeOut(200);
 }
