@@ -125,9 +125,13 @@ function initClickHandlers()
         $("body").scrollTop(0);
         $("#end_season_auth_background").fadeIn(200);
     });
-    $("#end_season_close_auth").on("click", function()
+    $("#end_season_close_auth,#cancel").on("click", function()
     {
         $("#end_season_auth_background").fadeOut(200);
+    });
+    $("#submit").on("click", function()
+    {
+        submitNewSeason($("#season_name_input").val());
     });
 }
 
@@ -141,4 +145,32 @@ function setShowHideInactive()
     {
         $("#hidden").text("Show Inactive");
     }
+}
+
+function submitNewSeason(seasonName)
+{
+    var ref = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
+    var email = $("#username_input").val();
+    var password = $("#password_input").val();
+    ref.authWithPassword({"email":email, "password": password}, function(error, authData)
+        {
+            if( error )
+            {
+                console.log("Login failed with error: ", error);
+            }
+            else
+            {
+                console.log("Login succeeded with authData: ", authData);
+                var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong");
+                pingPongRef.once('value', function(snapshot) {
+                    var data = snapshot.val();
+                    data['seasonName'] = seasonName;
+                    data['seasons'] = null;
+                    var seasonRef = pingPongRef.child("seasons").push(data);
+                    seasonRef.update({'timestamp': Firebase.ServerValue.TIMESTAMP});
+                    pingPongRef.update({'matches': null, 'doubles-matches': null, 'players': null});
+                });
+            }
+        });
+    $("#auth_background").fadeOut(200);
 }
