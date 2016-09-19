@@ -32,9 +32,7 @@ function addSeasonQueryParams(seasonId) {
     if (seasonId) {
         $("a").each(function(index) {
             href=$(this).attr("href");
-            if (String(href) !== "seasons.html") {
-                $(this).attr("href", href + "?s=" + seasonId);
-            }
+            $(this).attr("href", href + "?s=" + seasonId);
         })
     }
 }
