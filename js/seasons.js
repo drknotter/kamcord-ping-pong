@@ -85,7 +85,7 @@ function genSeasonHtml(seasonId, season) {
 
 function genSeasonInfoHtml(seasonId, season) {
     var htmlString = "";
-    htmlString += "<a href='rankings.html" + (seasonId != null ? "?s=" + seasonId : "") + "'>";
+    htmlString += "<a href='index.html" + (seasonId != null ? "?s=" + seasonId : "") + "'>";
     htmlString += "<span class='date'>" + new Date(season['timestamp']).toLocaleDateString() + "</span>";
     htmlString += "<span class='name'>" + season['seasonName'] + "</span>";
     htmlString += "</a>";
