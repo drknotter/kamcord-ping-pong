@@ -120,6 +120,15 @@ function initClickHandlers()
             genRankingsHtml(PingPong);
         }
     });
+
+    $("#end_season").on("click", function() {
+        $("body").scrollTop(0);
+        $("#end_season_auth_background").fadeIn(200);
+    });
+    $("#end_season_close_auth").on("click", function()
+    {
+        $("#end_season_auth_background").fadeOut(200);
+    });
 }
 
 function setShowHideInactive()
