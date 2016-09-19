@@ -157,6 +157,14 @@
     width: 30%;
 }
 
+#match_list .winner {
+    color: green;
+}
+
+#match_list .loser {
+    color: red;
+}
+
 #doubles_matches_header > .date_header {
     width: 20%;
 }
@@ -185,6 +193,16 @@
 #doubles_match_list .score {
     width: 20%;
 }
+
+#doubles_match_list .winner {
+    color: green;
+}
+
+#doubles_match_list .loser {
+    color: red;
+}
+
+
 #doubles_match_list a {
     text-decoration: none;
     color: black;

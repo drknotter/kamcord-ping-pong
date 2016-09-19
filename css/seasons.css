@@ -1,0 +1,58 @@
+#seasons {
+    margin: 0px;
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    list-style-type: none;
+}
+
+#seasons > li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+#seasons_header {
+    margin-top: 10px;
+}
+
+#seasons_header > span {
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+}
+
+#date_header {
+    width: 20%;
+}
+
+#name_header {
+    width: 80%;
+}
+
+#seasons > li span {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+#seasons > li:nth-child(2n) {
+    background-color: rgb(230,230,230);
+}
+
+#seasons > li:hover {
+    background-color: #9cdbb7;
+}
+
+.date {
+    width: 20%;
+}
+
+.name {
+    width: 80%;
+}
+

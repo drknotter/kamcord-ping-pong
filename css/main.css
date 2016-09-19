@@ -34,6 +34,14 @@ body {
     vertical-align: middle;
 }
 
+#season {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+    vertical-align: middle;
+}
+
 #header {
     display: inline-block;
     margin: 0px;
@@ -44,7 +52,7 @@ body {
 
 #header > li {
     display: inline-block;
-    width: 226px;
+    width: 168px;
     margin-left: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -52,7 +60,7 @@ body {
 }
 
 #header > li:first-child {
-    width: 227px;
+    width: 166px;
     margin-left: 0px;
 }
 

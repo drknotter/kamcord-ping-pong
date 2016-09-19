@@ -112,3 +112,103 @@
     font-size: 30px;
     color: #113420;
 }
+
+#end_season {
+    display: inline-block;
+    width: 700px;
+    text-align: center;
+    margin-bottom: 10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    background-color: #3eb872;
+    cursor: pointer;
+    font-size: 30px;
+    color: #113420;
+}
+
+#end_season_auth_buttons {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    width: 600px;
+    font-size: 0px;
+}
+
+#end_season_auth_buttons > li {
+    display: inline-block;
+    width: 292px;
+    margin-left: 15px;
+    text-align: center;
+    background-color: rgb(230,230,230);
+}
+
+#end_season_auth_buttons > li:first-child {
+    margin-left: 0px;
+}
+
+#end_season_auth_buttons > li:hover {
+    background-color: #9cdbb7;
+}
+
+#end_season_auth_buttons > li > span {
+    display: inline-block;
+    width: 282px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #113420;
+    cursor: pointer;
+}
+
+.popup .auth_input
+{
+    display: inline-block;
+    width: 49%;
+    margin-bottom: 15px;
+}
+
+#season_name_input
+{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.popup #username_input, .popup #password_input {
+    width: 95%;
+    display: inline-block;
+}
+
+.popup_background {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: rgba(0,0,0,0.45);
+}
+
+.popup {
+    position: absolute;
+    width: 600px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(255,255,255);
+    color: black;
+    font-size: 20px;
+    padding: 15px;
+}
+
+.close_button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0px;
+    right: 0px;
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+

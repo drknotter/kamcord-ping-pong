@@ -1,7 +1,8 @@
 $(document).ready(function()
 {
     initChart();
-    var pingpongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/");
+    var seasonId = getQueryParams(document.location.search).s;
+    var pingPongRef = new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : ""));
 
     var name = getQueryParams(document.location.search).n;
     $("title").html(name);
@@ -12,14 +13,33 @@ $(document).ready(function()
     $("#player_doubles_record").html("&#183;&#183;&#183;");
     $("#player_chart").hide();
 
-    pingpongRef.on("value", handlePlayer);
+    pingPongRef.on("value", handlePlayer);
+
+    $("#season").hide();
+    addSeasonQueryParams(seasonId);
 });
+
+function addSeasonQueryParams(seasonId) {
+    if (seasonId) {
+        $("a").each(function(index) {
+            href=$(this).attr("href");
+            $(this).attr("href", href + "?s=" + seasonId);
+        })
+    }
+}
 
 function handlePlayer(snapshot)
 {
     var data = snapshot.val();
     var name = getQueryParams(document.location.search).n;
     var player = null;
+
+    if (data['seasonName']) {
+        $("#season").show();
+        $("#season").text(data['seasonName'])
+    } else {
+        $("#season").hide();
+    }
 
     Elo.setPingPong(data);
     for( var p=0; p<PingPong.length; p++ )
@@ -191,12 +211,13 @@ function genPlayerDoublesHistoryHtml(history)
 
 function genPlayerMatchHtml(playerMatch)
 {
+    var seasonId = getQueryParams(document.location.search).s;
     html = "<li>";
-    html += "<a href='player.html?n=" + playerMatch['versus'] + "'>";
+    html += "<a href='player.html?n=" + playerMatch['versus'] + (seasonId?"&s="+seasonId:"") + "'>";
     html += "<span class='date'>" + new Date(playerMatch['timestamp']).toLocaleDateString() + "</span>";
     html += "<span class='challenged'>" + (playerMatch['challenger'] ? "Challenged" : "Challenged by") + "</span>";
     html += "<span class='other_player'>" + playerMatch['versus'] + "</span>";
-    html += "<span class='score'>" + playerMatch['score'] + "</span>";
+    html += "<span class='score " + (playerMatch['winner'] ? "winner" : "loser") + "'>" + (playerMatch['winner'] ? "&#8593;" : "&#8595;") + parseInt(Math.abs(playerMatch['scoreDiff'])) + "</span>";
     html += "</a>";
     html += "</li>";
     return html;
@@ -204,18 +225,19 @@ function genPlayerMatchHtml(playerMatch)
 
 function genPlayerDoublesMatchHtml(playerMatch)
 {
+    var seasonId = getQueryParams(document.location.search).s;
     html = "<li>";
     html += "<span class='date'>" + new Date(playerMatch['timestamp']).toLocaleDateString() + "</span>";
     html += "<span class='with'>"
-    html += "<a href='player.html?n=" + playerMatch['with'] + "'>" + playerMatch['with'] + "</a>"
+    html += "<a href='player.html?n=" + playerMatch['with'] + (seasonId?"&s="+seasonId:"") + "'>" + playerMatch['with'] + "</a>"
     html += "</span>";
     html += "<span class='challenged'>" + (playerMatch['challenger'] ? "Challenged" : "Challenged by") + "</span>";
     html += "<span class='versus'>"
-    html += "<a href='player.html?n=" + playerMatch['versus1'] + "'>" + playerMatch['versus1'] + "</a>"
+    html += "<a href='player.html?n=" + playerMatch['versus1'] + (seasonId?"&s="+seasonId:"") + "'>" + playerMatch['versus1'] + "</a>"
     html += " &amp; "
-    html += "<a href='player.html?n=" + playerMatch['versus2'] + "'>" + playerMatch['versus2'] + "</a>"
+    html += "<a href='player.html?n=" + playerMatch['versus2'] + (seasonId?"&s="+seasonId:"") + "'>" + playerMatch['versus2'] + "</a>"
     html += "</span>";
-    html += "<span class='score'>" + playerMatch['score'] + "</span>";
+    html += "<span class='score " + (playerMatch['winner'] ? "winner" : "loser") + "'>" + (playerMatch['winner'] ? "&#8593;" : "&#8595;") + parseInt(Math.abs(playerMatch['scoreDiff'])) + "</span>";
     html += "</li>";
     return html;
 }

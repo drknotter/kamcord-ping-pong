@@ -15,8 +15,10 @@
             <span id="kamcord">Kamcord Ping-Pong<br />Rankings</span>
             <img src="img/kamcord.jpg" />
         </div>
+        <div id="season"></div>
         <ul id="header">
             <li><a href="rankings.html">Rankings</a></li>
+            <li><a href="seasons.html">Seasons</a></li>
             <li><a href="matches.html">Singles</a></li>
             <li><a href="doubles-matches.html">Doubles</a></li>
         </ul>
@@ -24,8 +26,24 @@
             <span id="name_header">Player</span><span id="singles_rank_header" class="rank_header">Singles Rank</span><span id="doubles_rank_header" class="rank_header">Doubles Rank</span>
         </div>
         <ol id="rankings"></ol>
+        <div id="end_season">End Season</div>
         <ul id="footer">
             <li><span id="hidden"></span></li>
         </ul>
+
+        <div id="end_season_auth_background" class="popup_background">
+            <div id="end_season_auth" class="popup">
+                Season Name: <input id="season_name_input" type="text" />
+                <span>
+                    <span class="auth_input">Username: <input id="username_input" type="text" /></span>
+                    <span class="auth_input">Password: <input id="password_input" type="password" /></span>
+                </span>
+                <ul id="end_season_auth_buttons">
+                    <li><span class="button" id="submit">Submit</span></li>
+                    <li><span class="button" id="cancel">Cancel</span></li>
+                </ul>
+                <span id="end_season_close_auth" class="close_button">x</span>
+            </div>
+        </div>
     </body>
 </html>

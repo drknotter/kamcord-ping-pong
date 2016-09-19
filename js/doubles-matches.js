@@ -3,14 +3,54 @@ var max_sets = 3;
 
 $(document).ready(function()
 {
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-matches/").on("value", handleMatches);
-    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/doubles-pending/").on("value", handlePending);
+    var seasonId = getQueryParams(document.location.search).s;
+    new Firebase("https://crackling-fire-6808.firebaseio.com/ping-pong/" + (seasonId ? "seasons/" + seasonId + "/" : "")).on("value", handleData);
+
+    $("#season").hide();
+    $("#footer").hide();
+    addSeasonQueryParams(seasonId);
     initClickHandlers();
 });
 
-function handleMatches(snapshot)
+function getQueryParams(qs) {
+    qs = qs.split("+").join(" ");
+
+    var params = {}, tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])]
+            = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+function addSeasonQueryParams(seasonId) {
+    if (seasonId) {
+        $("a").each(function(index) {
+            href=$(this).attr("href");
+            $(this).attr("href", href + "?s=" + seasonId);
+        })
+    }
+}
+
+function handleData(snapshot) {
+    var data = snapshot.val();
+
+    if (data['seasonName']) {
+        $("#season").text(data['seasonName'])
+        $("#season").show();
+    } else {
+        $("#footer").show();
+    }
+
+    handleMatches(data['doubles-matches']);
+    handlePending(data['doubles-pending']);
+}
+
+function handleMatches(snapshotVals)
 {
-    var snapshotVals = snapshot.val();
     if( snapshotVals == null )
     {
         genMatchesHtml([]);
@@ -45,9 +85,8 @@ function handleMatches(snapshot)
     }
 }
 
-function handlePending(snapshot)
+function handlePending(snapshotVals)
 {
-    var snapshotVals = snapshot.val();
     if( snapshotVals == null )
     {
         genPendingMatchesHtml([], []);
@@ -128,24 +167,25 @@ function genMatchInfoHtml(match)
     var team2_players = match['team2'].split('&').sort();
     var winner = match["winner"];
 
+    var seasonId = getQueryParams(document.location.search).s;
     var htmlString = "";
     htmlString += "<span class='date'>" + new Date(match['timestamp']).toLocaleDateString() + "</span>";
     htmlString += "<span class='team1 " + (winner == 1 ? "winner" : (winner == 2 ) ? "loser" : "") + "'>";
-    htmlString += "<a href='player.html?n=" + team1_players[0] + "'>";
+    htmlString += "<a href='player.html?n=" + team1_players[0] + (seasonId?"&s="+seasonId:"") + "'>";
     htmlString += team1_players[0];
     htmlString += "</a>";
     htmlString += " &amp; "
-    htmlString += "<a href='player.html?n=" + team1_players[1] + "'>";
+    htmlString += "<a href='player.html?n=" + team1_players[1] + (seasonId?"&s="+seasonId:"") + "'>";
     htmlString += team1_players[1];
     htmlString += "</a>";
     htmlString += "</span>";
     htmlString += "<span class='vs'>vs.</span>";
     htmlString += "<span class='team2 " + (winner == 2 ? "winner" : (winner == 1 ) ? "loser" : "") + "'>";
-    htmlString += "<a href='player.html?n=" + team2_players[0] + "'>";
+    htmlString += "<a href='player.html?n=" + team2_players[0] + (seasonId?"&s="+seasonId:"") + "'>";
     htmlString += team2_players[0];
     htmlString += "</a>";
     htmlString += " &amp; "
-    htmlString += "<a href='player.html?n=" + team2_players[1] + "'>";
+    htmlString += "<a href='player.html?n=" + team2_players[1] + (seasonId?"&s="+seasonId:"") + "'>";
     htmlString += team2_players[1];
     htmlString += "</a>";
     htmlString += "</span>";
@@ -165,24 +205,9 @@ function initClickHandlers()
         initNewMatchDialog();
         $(document).scrollTop(0);
         $("#new_match_background").fadeIn(200);
+        $("#player1_input").focus();
     });
 
-    $("#add_set").on("click", function()
-    {
-        if( n_sets < max_sets )
-        {
-            $("#sets_input").append(genNewSetHtml());
-            n_sets += 1;
-        }
-    });
-    $("#remove_set").on("click", function()
-    {
-        if( n_sets > 1 )
-        {
-            $("#sets_input li:last-child").remove();
-            n_sets -= 1;
-        }
-    });
     $("#close_new_match,#cancel").on("click", function()
     {
         $("#new_match_background").fadeOut(200);
@@ -201,6 +226,11 @@ function initNewMatchDialog()
 {
     $("#sets_input").empty();
     $("#sets_input").append(genNewSetHtml());
+    $(".score").last().keypress(function(e) {
+        if (e.which == 13) {
+            submitNewMatch();
+        }
+    });
     n_sets = 1;
 }
 
