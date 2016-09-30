@@ -115,7 +115,6 @@ function handlePending(snapshotVals)
         }
         pending = snapshotVals;
     }
-    console.log("keys: " + keys + ", pending: " + pending);
 
     if( pending != null )
     {
