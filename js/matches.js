@@ -54,6 +54,7 @@ function handleMatches(snapshotVals)
     if( snapshotVals == null )
     {
         genMatchesHtml([]);
+        return;
     }
 
     var keys = null;
@@ -90,6 +91,7 @@ function handlePending(snapshotVals)
     if( snapshotVals == null )
     {
         genPendingMatchesHtml([], []);
+        return;
     }
 
     var keys = null;
